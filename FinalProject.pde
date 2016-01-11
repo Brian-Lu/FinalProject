@@ -42,8 +42,8 @@ class Person{
    Person(){
      health = 100;
      speed = 1;
-     xpos = 70;
-     ypos = 70;
+     xpos = 80;
+     ypos = 80;
    }
    Person(float Xpos, float Ypos,int Speed, int Health){
      health = Health;
@@ -76,12 +76,7 @@ class Player extends Person{
      }
    }
    void display(){
-      ellipse(xpos,ypos,20,20);
-      rect( xpos - 10, ypos + 10, 20, 40);
-      line(xpos + 10, ypos + 20, xpos + 15, ypos + 5);
-      line(xpos - 10, ypos + 20, xpos - 15, ypos + 5);
-      line(xpos + 10, ypos + 50, xpos + 15, ypos + 60);
-      line(xpos - 10, ypos + 50, xpos - 15, ypos + 60);
+      ellipse(xpos,ypos,10,10);
    }
    
 }
