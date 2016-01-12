@@ -1,22 +1,3 @@
-class Person{
-   int health;
-   int speed;
-   float xpos;
-   float ypos;
-   
-   Person(){
-     health = 100;
-     speed = 1;
-     xpos = 70;
-     ypos = 70;
-   }
-   Person(float Xpos, float Ypos,int Speed, int Health){
-     health = Health;
-     xpos = Xpos;
-     ypos = Ypos;
-     speed = Speed;
-   }
-}
 class Player extends Person{
    int light;
    Player(){
@@ -50,30 +31,4 @@ class Player extends Person{
       */
    }
    
-}
-class Guard extends Person{
-   boolean alert;
-   int resetTime;
-   Guard(){
-     super();
-     alert = false;
-   }
-   Guard(float Xpos,float Ypos,int Speed, int health){
-     super(Xpos,Ypos,Speed,health);
-     alert = false;
-   }
-   void chase(Player P){
-     if (P.xpos > xpos){
-       xpos += speed*1.0;
-     }else if(P.xpos < xpos){
-       xpos -= speed*1.0;
-     }else if(P.ypos > ypos){
-       ypos += speed*1.0;
-     }else if(P.ypos < ypos){
-       ypos -= speed*1.0;
-     }
-   }
-   void display(){
-     rect(xpos,ypos,5,5); 
-   }
 }
