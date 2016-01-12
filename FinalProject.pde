@@ -26,6 +26,9 @@ void draw(){
   P1.display();
   for(Guard guard : Guards){
     guard.display();
+    if (guard.xpos == P1.xpos && guard.ypos == P1.ypos) {
+      print("a");
+    }
   }
   for(Wall wall : Walls) {
     for(Guard guard : Guards){

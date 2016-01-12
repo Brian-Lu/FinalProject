@@ -1,5 +1,6 @@
 class Player extends Person{
    int light;
+   int lives;
    Player(){
      super(); 
      light = 20;

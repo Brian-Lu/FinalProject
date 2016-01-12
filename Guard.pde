@@ -10,6 +10,9 @@ class Guard extends Person{
      alert = false;
    }
    void chase(Player P){
+     if (P.xpos == xpos && P.ypos == ypos) {
+       P.lives -= 1;
+     }
      if (P.xpos > xpos){
        xpos += speed*1.0;
      }else if(P.xpos < xpos){
