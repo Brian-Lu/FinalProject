@@ -28,11 +28,15 @@ void draw(){
     guard.display();
   }
   for(Wall wall : Walls) {
-  w1.display();
-  P1.move();
-  w1.block(P1);
-  patrol();
+    for(Guard guard : Guards){
+      wall.block(guard);
+    }
+    wall.block(P1);
+    wall.display();
   }
+  P1.move();
+  patrol();
+  
 }
 
 class Wall{
@@ -47,20 +51,33 @@ class Wall{
     Width = wid;
     Height = hgt;
   }
-  
+  Wall() {
+    this(100.0, 100.0, 10, 50);
+  }
   void block(Player Other){
-     if(Other.xpos - xpos <= 5 && ypos <= Other.ypos && Other.ypos <= ypos + Height){
+     if(Math.abs(Other.xpos - xpos) <= 5 && ypos <= Other.ypos && Other.ypos <= ypos + Height){
         Other.xpos = xpos - 5;
-     }else if(Other.ypos - ypos <= 5 && xpos <= Other.xpos && Other.xpos <= xpos + Width){
+     }else if(Math.abs(Other.ypos - ypos) <= 5 && xpos <= Other.xpos && Other.xpos <= xpos + Width){
         Other.ypos = ypos - 5;
-     }else if(Other.xpos - (xpos + Width) <= 5 && ypos <= Other.ypos && Other.ypos <= ypos + Height){
+     }else if(Math.abs(Other.xpos - (xpos + Width)) <= 5 && ypos <= Other.ypos && Other.ypos <= ypos + Height){
         Other.xpos = xpos + Width + 5;
-     }else if(Other.ypos - (ypos + Height) <= 5 && xpos <= Other.xpos && Other.xpos <= xpos + Width){
+     }else if(Math.abs(Other.ypos - (ypos + Height)) <= 5 && xpos <= Other.xpos && Other.xpos <= xpos + Width){
+        Other.ypos = ypos + Height + 5;
+     }
+  }
+  void block(Guard Other){
+     if(Math.abs(Other.xpos - xpos) <= 5 && ypos <= Other.ypos && Other.ypos <= ypos + Height){
+        Other.xpos = xpos - 5;
+     }else if(Math.abs(Other.ypos - ypos) <= 5 && xpos <= Other.xpos && Other.xpos <= xpos + Width){
+        Other.ypos = ypos - 5;
+     }else if(Math.abs(Other.xpos - (xpos + Width)) <= 5 && ypos <= Other.ypos && Other.ypos <= ypos + Height){
+        Other.xpos = xpos + Width + 5;
+     }else if(Math.abs(Other.ypos - (ypos + Height)) <= 5 && xpos <= Other.xpos && Other.xpos <= xpos + Width){
         Other.ypos = ypos + Height + 5;
      }
   }
   void display(){
-    fill(100,0,0);
     rect(xpos,ypos,Width,Height);
+    fill(100,0,0);
   }
 }
