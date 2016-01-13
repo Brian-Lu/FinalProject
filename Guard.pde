@@ -15,11 +15,14 @@ class Guard extends Person{
      }
      if (P.xpos > xpos){
        xpos += speed*1.0;
-     }else if(P.xpos < xpos){
+     }
+     if(P.xpos < xpos){
        xpos -= speed*1.0;
-     }else if(P.ypos > ypos){
+     }
+     if(P.ypos > ypos){
        ypos += speed*1.0;
-     }else if(P.ypos < ypos){
+     }
+     if(P.ypos < ypos){
        ypos -= speed*1.0;
      }
    }
