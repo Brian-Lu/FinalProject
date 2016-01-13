@@ -4,10 +4,12 @@ class Player extends Person{
    Player(){
      super(); 
      light = 20;
+     lives = 20;
    }
    Player(float Xpos,float Ypos,int Speed, int Health){
      super(Xpos,Ypos,Speed,Health); 
      light = 20;
+     lives = 20;
    }
    void move(){
      if (key == CODED){

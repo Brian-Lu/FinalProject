@@ -27,7 +27,8 @@ void draw(){
   for(Guard guard : Guards){
     guard.display();
     if (guard.xpos == P1.xpos && guard.ypos == P1.ypos) {
-      print("a");
+      P1.lives -= 1;
+      print("b");
     }
   }
   for(Wall wall : Walls) {
@@ -39,7 +40,10 @@ void draw(){
   }
   P1.move();
   patrol();
-  
+  if (P1.lives == 0) {
+      P1.speed = 0;
+      print("a");
+  }
 }
 
 class Wall{
