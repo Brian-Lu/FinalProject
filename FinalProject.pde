@@ -55,7 +55,7 @@ void PlayLevel(int level){
   }
   P1.move();
   patrol();
-  if (P1.lives == 0) {
+  if (P1.lives <= 0) {
       P1.speed = 0;
       mode = 2;
   }
@@ -82,6 +82,8 @@ void ShowMenu(){
   PFont choices = createFont("Times New Roman", 30, true);
   textFont(choices,30);
   text("Play Campaign",250,150);
+  
+  
   text("Level Editor",750,150);
   
   if(mouseX >= 100 && mouseX <= 400 && mouseY >= 100 && mouseY <= 200){
@@ -97,5 +99,4 @@ void EditLevels(){
 void DisplayEnd(){
   fill(0,200,0);
   rect(800,600,15,15);
-  fill(0);
 }
