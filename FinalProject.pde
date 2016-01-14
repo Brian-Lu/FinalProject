@@ -3,20 +3,22 @@ int mode = 1;
 int x = 100;
 Player P1;
 Guard g1;
-ArrayList<Guard> Guards = new ArrayList<Guard>(1);
+Guard g2;
+ArrayList<Guard> Guards = new ArrayList<Guard>(2);
 Wall w1;
 ArrayList<Wall> Walls = new ArrayList<Wall>(1);
 void setup(){
   size(1000, 650);
   P1 = new Player(20.0,20.0,2,100);
   Guards.add(new Guard(80.0,80.0,1,100));
+  Guards.add(new Guard(400.0, 400.0, 1, 100));
   Wall w1 = new Wall(500,500,50,50);
   Walls.add(w1);
 }
 void patrol(){
   if(Guards.size() >= 1){
     for(Guard guard : Guards){
-      if (P1.xpos - guard.xpos <= 100){
+      if (Math.abs(P1.xpos - guard.xpos) <= 100 && Math.abs(P1.ypos - guard.ypos) <= 100) {
         guard.alert = true;
         guard.chase(P1);
       }
