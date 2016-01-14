@@ -1,5 +1,5 @@
 int level;
-int mode = 1;
+int mode;
 int x = 100;
 Player P1;
 Guard g1;
@@ -10,6 +10,7 @@ ArrayList<Wall> Walls = new ArrayList<Wall>(1);
 void setup(){
   size(1000, 650);
   P1 = new Player(20.0,20.0,2,100);
+  mode = 2;
   Guards.add(new Guard(80.0,80.0,1,100));
   Guards.add(new Guard(400.0, 400.0, 1, 100));
   Wall w1 = new Wall(500,500,50,50);
@@ -56,6 +57,7 @@ void PlayLevel(int level){
   patrol();
   if (P1.lives == 0) {
       P1.speed = 0;
+      mode = 2;
   }
   if(P1.xpos >= 800 && P1.xpos <= 815 && P1.ypos >= 600 && P1.ypos <= 615){
     level += 1;
@@ -67,8 +69,27 @@ void Load(int level){
   int x  = level;
   
 }
+
 void ShowMenu(){
+  fill(200,200,0);
+  PFont title = createFont("Times New Roman", 30, true);
+  background(0);
+  textAlign(CENTER);
+  textFont(title,50);
+  text("Prison Escape", 500,50);
   
+  fill(0,200,200);
+  PFont choices = createFont("Times New Roman", 30, true);
+  textFont(choices,30);
+  text("Play Campaign",250,150);
+  text("Level Editor",750,150);
+  
+  if(mouseX >= 100 && mouseX <= 400 && mouseY >= 100 && mouseY <= 200){
+    if(mousePressed){
+      mode = 1;
+    } 
+  }
+
 }
 void EditLevels(){
 
