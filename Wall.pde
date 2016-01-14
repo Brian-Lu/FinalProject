@@ -35,7 +35,7 @@ class Wall{
      }
   }
   void display(){
-    rect(xpos,ypos,Width,Height);
     fill(100,0,0);
+    rect(xpos,ypos,Width,Height);
   }
 }

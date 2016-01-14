@@ -27,6 +27,7 @@ class Guard extends Person{
      }
    }
    void display(){
+     fill(250,250,0);
      rect(xpos,ypos,5,5); 
    }
 }
