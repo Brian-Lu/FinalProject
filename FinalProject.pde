@@ -19,7 +19,7 @@ void setup(){
 void patrol(){
   if(Guards.size() >= 1){
     for(Guard guard : Guards){
-      if (Math.abs(P1.xpos - guard.xpos) <= 100 && Math.abs(P1.ypos - guard.ypos) <= 100) {
+      if (Math.sqrt(Math.pow((P1.xpos - guard.xpos),2) + Math.pow((P1.ypos - guard.ypos),2)) <= 100) {
         guard.alert = true;
         guard.chase(P1);
       }
