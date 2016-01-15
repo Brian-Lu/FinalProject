@@ -1,7 +1,8 @@
 class Guard extends Person{
-   int type;
+   int type, dir;
    boolean alert;
-   int resetTime;
+   int change;
+   String direction;
    Guard(){
      super();
      alert = false;
@@ -11,10 +12,12 @@ class Guard extends Person{
      super(Xpos,Ypos,Speed,health);
      alert = false;
      type = 1;
+     change = 0;
    }
    Guard(float Xpos, float Ypos, int Speed, int health, int Type) {
      this(Xpos, Ypos, Speed, health);
      type = Type;
+     change = 0;
    }
    void chase(Player P){
      if (P.xpos == xpos && P.ypos == ypos) {
@@ -38,13 +41,19 @@ class Guard extends Person{
      rect(xpos,ypos,5,5); 
    }
    void move() {
-     if (type == 1) {
-       xpos += int(random(-2, 2));
-       ypos += int(random(-2, 2));
+     if(change == 0){
+       dir = int(random(1,4));
+       change = 10;
      }
-     else {
-       xpos += int(random(-2, 2));
-       ypos += int(random(-2, 2));
+     if (dir == 1){
+       ypos -= 1; 
+     }else if (dir == 2){
+       xpos += 1; 
+     }else if (dir == 3){
+       ypos += 1;
+     }else{
+       xpos -= 1;
      }
+     change--;
    }
 }
