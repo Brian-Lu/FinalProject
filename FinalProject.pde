@@ -23,6 +23,9 @@ void patrol(){
         guard.alert = true;
         guard.chase(P1);
       }
+      else {
+        guard.move();
+      }
     }
   }
 }

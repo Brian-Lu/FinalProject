@@ -37,4 +37,14 @@ class Guard extends Person{
      fill(250,250,0);
      rect(xpos,ypos,5,5); 
    }
+   void move() {
+     if (type == 1) {
+       xpos += int(random(-2, 2));
+       ypos += int(random(-2, 2));
+     }
+     else {
+       xpos += int(random(-2, 2));
+       ypos += int(random(-2, 2));
+     }
+   }
 }
