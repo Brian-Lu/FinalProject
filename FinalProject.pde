@@ -62,6 +62,11 @@ void PlayLevel(int level){
       P1.speed = 0;
       mode = 2;
       Load(level);
+      P1.lives = 5;
+      P1.xpos = 20;
+      P1.ypos = 20;
+      P1.speed = 2;
+      
   }
   if(P1.xpos >= 800 && P1.xpos <= 815 && P1.ypos >= 600 && P1.ypos <= 615){
     level += 1;
