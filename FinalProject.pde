@@ -61,6 +61,7 @@ void PlayLevel(int level){
   if (P1.lives <= 0) {
       P1.speed = 0;
       mode = 2;
+      Load(level);
   }
   if(P1.xpos >= 800 && P1.xpos <= 815 && P1.ypos >= 600 && P1.ypos <= 615){
     level += 1;
@@ -70,7 +71,9 @@ void PlayLevel(int level){
 
 void Load(int level){
   int x  = level;
-  
+/*  String s = "level" + level + ".txt";
+  loadStrings(s);
+  */
 }
 
 void ShowMenu(){
