@@ -7,22 +7,25 @@ Guard g2;
 Prisoner PR1;
 Wall w1;
 Key k1;
-ArrayList<Guard> Guards = new ArrayList<Guard>(2);
+Door d1;
+ArrayList<Guard> Guards = new ArrayList<Guard>(1);
 ArrayList<Wall> Walls = new ArrayList<Wall>(1);
 ArrayList<Prisoner> Prisoners = new ArrayList<Prisoner>(1);
 ArrayList<Key> Keys = new ArrayList<Key>(1);
+ArrayList<Door> Doors = new ArrayList<Door>(1);
 void setup(){
   size(1000, 650);
   P1 = new Player(20.0,20.0,2,100);
   mode = 2;
   Guards.add(new Guard(80.0,80.0,1,100));
-  Guards.add(new Guard(400.0, 400.0, 1, 100));
   Wall w1 = new Wall(500,500,50,50);
   Walls.add(w1);
   PR1 = new Prisoner(560, 560, 1);
   Prisoners.add(PR1);
   k1 = new Key(420, 420);
   Keys.add(k1);
+  d1 = new Door();
+  Doors.add(d1);
 }
 void patrol(){
   if(Guards.size() >= 1){
@@ -89,6 +92,10 @@ void PlayLevel(int level){
   if(P1.xpos >= 800 && P1.xpos <= 815 && P1.ypos >= 600 && P1.ypos <= 615){
     level += 1;
     print(level);
+  }
+  for (Door door : Doors) {
+    door.block(P1);
+    door.display();
   }
 }
 
