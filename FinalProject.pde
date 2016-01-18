@@ -1,11 +1,12 @@
-int level, mode;
+int level, mode, maxLevel;
 int x = 100;
+int next;
 Player P1;
-Guard g1, g2;
+/*Guard g1, g2;
 Prisoner PR1;
 Wall w1;
 Key k1;
-Door d1;
+Door d1;*/
 ArrayList<Guard> Guards = new ArrayList<Guard>(1);
 ArrayList<Wall> Walls = new ArrayList<Wall>(1);
 ArrayList<Prisoner> Prisoners = new ArrayList<Prisoner>(1);
@@ -13,9 +14,9 @@ ArrayList<Key> Keys = new ArrayList<Key>(1);
 ArrayList<Door> Doors = new ArrayList<Door>(1);
 void setup(){
   size(1000, 650);
-  P1 = new Player(20.0,20.0,2,100);
+  //P1 = new Player(20.0,20,2,100);
   mode = 2;
-  Guards.add(new Guard(80.0,80.0,1,100));
+  /*Guards.add(new Guard(80.0,80.0,1,100));
   Wall w1 = new Wall(500,500,50,50);
   Walls.add(w1);
   PR1 = new Prisoner(560, 560, 1);
@@ -23,7 +24,7 @@ void setup(){
   k1 = new Key(420, 420);
   Keys.add(k1);
   d1 = new Door();
-  Doors.add(d1);
+  Doors.add(d1);*/
 }
 void patrol(){
   if(Guards.size() >= 1){
@@ -40,7 +41,6 @@ void patrol(){
 }
 void draw(){
   if(mode == 1){
-    //Load(level);
     PlayLevel(level);
   }else if(mode == 2){
     ShowMenu(); 
@@ -52,6 +52,7 @@ void PlayLevel(int level){
   background(204);
   DisplayEnd();
   P1.display();
+  P1.move();
   for(Key abc : Keys) {
     abc.display();
     if (Math.abs(P1.xpos - abc.xpos) <= 2 && Math.abs(P1.ypos - abc.ypos) <= 2) {
@@ -89,7 +90,9 @@ void PlayLevel(int level){
       
   }
   if(P1.xpos >= 800 && P1.xpos <= 815 && P1.ypos >= 600 && P1.ypos <= 615){
-    level += 1;
+    next = level + 1;
+    setLevel(next);
+    Load(next);
     print(level);
   }
   for (Door door : Doors) {
@@ -98,20 +101,20 @@ void PlayLevel(int level){
   }
 }
 
-void Load(int level){
+void Load(int Level){
   Guards.clear();
   Walls.clear();
   Prisoners.clear();
   Keys.clear();
   int num;
   int[] nums = new int[10];
-  String name = level + "";
+  String name = Level + "";
   String file = "level" + name + ".txt";
   String[] lines = loadStrings(file);
   for(int x = 0;x<lines.length;x++){
     String[] words = split(lines[x]," ");
     for(int i = 1;i<words.length;i++){
-      if(!(words[x]==null)){
+      if(!(words[i]==null)){
         num = Integer.parseInt(words[i]);
         nums[i-1] = num;
       }
@@ -154,12 +157,16 @@ void ShowMenu(){
   if(mouseX >= 100 && mouseX <= 400 && mouseY >= 100 && mouseY <= 200){
     if(mousePressed){
       mode = 1;
+      Load(level);
     } 
   }
 
 }
 void EditLevels(){
 
+}
+void setLevel(int Level){
+  level = Level;
 }
 void DisplayEnd(){
   fill(0,200,0);

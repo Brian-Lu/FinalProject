@@ -1,0 +1,9 @@
+Player 50 50
+Wall 0 0 1000 10
+Wall 0 0 10 650
+Wall 990 0 10 650
+Wall 0 640 1000 10
+Wall 30 0 10 100
+Wall 0 110 40 10
+Guard 400 400
+Prisoner 500 500

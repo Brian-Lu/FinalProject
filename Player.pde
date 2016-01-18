@@ -36,7 +36,7 @@ class Player extends Person{
    }
    
    void display(){
-      ellipse(xpos,ypos,20,20);
+      ellipse(xpos,ypos,10,10);
       /*rect( xpos - 10, ypos + 10, 20, 40);
       line(xpos + 10, ypos + 20, xpos + 15, ypos + 5);
       line(xpos - 10, ypos + 20, xpos - 15, ypos + 5);
