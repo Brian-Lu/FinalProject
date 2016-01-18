@@ -4,7 +4,7 @@ class Player extends Person{
      super(); 
      light = 20;
      lives = 5;
-     keys = 5;
+     keys = 0;
    }
    Player(float Xpos,float Ypos,int Speed, int Health){
      super(Xpos,Ypos,Speed,Health); 
@@ -25,13 +25,16 @@ class Player extends Person{
        }
      }
    }
+   void addKey(){
+     keys += 1; 
+   }
    boolean hasKEY(){
      if(keys>0){
-        keys -= 1;
         return true;
      }
      return false;
    }
+   
    void display(){
       ellipse(xpos,ypos,20,20);
       /*rect( xpos - 10, ypos + 10, 20, 40);

@@ -55,7 +55,8 @@ void PlayLevel(int level){
   for(Key abc : Keys) {
     abc.display();
     if (Math.abs(P1.xpos - abc.xpos) <= 2 && Math.abs(P1.ypos - abc.ypos) <= 2) {
-      P1.lives += 1;
+      P1.addKey();
+      print(P1.keys);
     }
   }
   for(Guard guard : Guards){
