@@ -83,21 +83,35 @@ void PlayLevel(int level){
 }
 
 void Load(int level){
-  int x  = level;
-  String file = "level" + level + ".txt";
+  Guards.clear();
+  Walls.clear();
+  Prisoners.clear();
+  int num;
+  int[] nums = new int[10];
+  String name = level + "";
+  String file = "level" + name + ".txt";
   String[] lines = loadStrings(file);
   for(int x = 0;x<lines.length;x++){
     String[] words = split(lines[x]," ");
-    if(words[0].equals("Player"){
-      
-    }else if(words[0].equals("Guard"){
-      
-    }else if(words[0].equals("Wall"){
-       
-    }else if(words[0].equals("Prisoner"){
-      
-    }else if(words[0].equals("Key"){
-      
+    for(int i = 1;i<words.length;i++){
+      num = Integer.parseInt(words[i]);
+      nums[i-1] = num;
+    }
+    /* Words Format:
+    {<Object Type>,<xpos>,<ypos>} for all objects
+    -for walls, it is extended to add height and width
+    -for guards, it will be extended as far as necessary to add patrol points
+    */
+    if(words[0].equals("Player")){
+      P1 = new Player(nums[0],nums[1],1,100);
+    }else if(words[0].equals("Guard")){
+      Guards.add(new Guard(nums[0],nums[1],nums[2],100));
+    }else if(words[0].equals("Wall")){
+      Walls.add(new Wall(nums[0],nums[1],nums[2],nums[3]));
+    }else if(words[0].equals("Prisoner")){
+      Prisoners.add(new Prisoner(nums[0],nums[1],3));
+    }else if(words[0].equals("Key")){
+      //initialize a key at nums[0],nums[1]
     }
   }
 }
