@@ -13,26 +13,26 @@ class Door extends Wall {
       rect(xpos, ypos, Width, Height);
     }
   }
-  void block(Player other) {
+  void block(Player Other) {
     if (isOpen == false) {
-      if (other.keys >= 1) {
+      if (Other.keys >= 1) {
         if(Math.abs(Other.xpos - xpos) <= 5 && ypos <= Other.ypos && Other.ypos <= ypos + Height){
          isOpen = true;
-         other.keys -= 1;
+         Other.keys -= 1;
         }else if(Math.abs(Other.ypos - ypos) <= 5 && xpos <= Other.xpos && Other.xpos <= xpos + Width){
          isOpen = true;
-         other.keys -= 1;
+         Other.keys -= 1;
         }else if(Math.abs(Other.xpos - (xpos + Width)) <= 5 && ypos <= Other.ypos && Other.ypos <= ypos + Height){
          isOpen = true;
-         other.keys -= 1;
+         Other.keys -= 1;
         }else if(Math.abs(Other.ypos - (ypos + Height)) <= 5 && xpos <= Other.xpos && Other.xpos <= xpos + Width){
          isOpen = true;
-         other.keys -= 1;
+         Other.keys -= 1;
         }
       }else{
-        super.block(other);
+        super.block(Other);
       }
     }
   }
-    
+}  
     
