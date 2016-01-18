@@ -84,9 +84,22 @@ void PlayLevel(int level){
 
 void Load(int level){
   int x  = level;
-/*  String s = "level" + level + ".txt";
-  loadStrings(s);
-  */
+  String file = "level" + level + ".txt";
+  String[] lines = loadStrings(file);
+  for(int x = 0;x<lines.length;x++){
+    String[] words = split(lines[x]," ");
+    if(words[0].equals("Player"){
+      
+    }else if(words[0].equals("Guard"){
+      
+    }else if(words[0].equals("Wall"){
+       
+    }else if(words[0].equals("Prisoner"){
+      
+    }else if(words[0].equals("Key"){
+      
+    }
+  }
 }
 
 void ShowMenu(){
