@@ -16,12 +16,13 @@ class Prisoner{
     ellipse(xpos, ypos, 20, 20);
   }
   void behavior(Player other) {
-    if (Math.abs(other.xpos - xpos) <= 5 && Math.abs(other.ypos - ypos) <= 5) {
-      print ("b");
+    if (Math.abs(other.xpos - xpos) <= 2 && Math.abs(other.ypos - ypos) <= 2) {
       if(other.keys >= 1) {
         other.keys -= 1;
         other.lives += lives;
-        print(other.lives);
+        lives = 0;
+        xpos = -15;
+        ypos = -20;
       }
     }
   }
