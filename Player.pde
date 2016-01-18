@@ -27,6 +27,12 @@ class Player extends Person{
        }
      }
    }
+   boolean hasKEY(){
+     if(keys>0){
+        keys -= 1;
+        return true;
+     }
+   }
    void display(){
       ellipse(xpos,ypos,20,20);
       /*rect( xpos - 10, ypos + 10, 20, 40);
