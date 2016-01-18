@@ -1,9 +1,6 @@
 class Person{
-   int health;
-   int speed;
-   float xpos;
-   float ypos;
-   int keys;
+   int health,speed,keys;
+   float xpos,ypos;
    Person(){
      health = 100;
      speed = 1;

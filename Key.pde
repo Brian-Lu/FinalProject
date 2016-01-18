@@ -1,6 +1,5 @@
 class Key{
-  int xpos; 
-  int ypos;
+  int xpos,ypos;
   Key(){
     xpos = 420;
     ypos = 420;

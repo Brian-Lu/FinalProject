@@ -1,9 +1,7 @@
-int level;
-int mode;
+int level, mode;
 int x = 100;
 Player P1;
-Guard g1;
-Guard g2;
+Guard g1, g2;
 Prisoner PR1;
 Wall w1;
 Key k1;
@@ -112,8 +110,10 @@ void Load(int level){
   for(int x = 0;x<lines.length;x++){
     String[] words = split(lines[x]," ");
     for(int i = 1;i<words.length;i++){
-      num = Integer.parseInt(words[i]);
-      nums[i-1] = num;
+      if(!(words[x]==null)){
+        num = Integer.parseInt(words[i]);
+        nums[i-1] = num;
+      }
     }
     /* Words Format:
     {<Object Type>,<xpos>,<ypos>} for all objects
