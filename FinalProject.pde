@@ -6,9 +6,11 @@ Guard g1;
 Guard g2;
 Prisoner PR1;
 Wall w1;
+Key k1;
 ArrayList<Guard> Guards = new ArrayList<Guard>(2);
 ArrayList<Wall> Walls = new ArrayList<Wall>(1);
 ArrayList<Prisoner> Prisoners = new ArrayList<Prisoner>(1);
+ArrayList<Key> Keys = new ArrayList<Key>(1);
 void setup(){
   size(1000, 650);
   P1 = new Player(20.0,20.0,2,100);
@@ -19,6 +21,8 @@ void setup(){
   Walls.add(w1);
   PR1 = new Prisoner(560, 560, 1);
   Prisoners.add(PR1);
+  k1 = new Key(420, 420);
+  Keys.add(k1);
 }
 void patrol(){
   if(Guards.size() >= 1){
@@ -35,7 +39,7 @@ void patrol(){
 }
 void draw(){
   if(mode == 1){
-    Load(level);
+    //Load(level);
     PlayLevel(level);
   }else if(mode == 2){
     ShowMenu(); 
@@ -47,6 +51,12 @@ void PlayLevel(int level){
   background(204);
   DisplayEnd();
   P1.display();
+  for(Key abc : Keys) {
+    abc.display();
+    if (Math.abs(P1.xpos - abc.xpos) <= 2 && Math.abs(P1.ypos - abc.ypos) <= 2) {
+      P1.lives += 1;
+    }
+  }
   for(Guard guard : Guards){
     guard.display();
     if (guard.xpos == P1.xpos && guard.ypos == P1.ypos) {
@@ -86,6 +96,7 @@ void Load(int level){
   Guards.clear();
   Walls.clear();
   Prisoners.clear();
+  Keys.clear();
   int num;
   int[] nums = new int[10];
   String name = level + "";

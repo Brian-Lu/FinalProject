@@ -32,6 +32,7 @@ class Player extends Person{
         keys -= 1;
         return true;
      }
+     return false;
    }
    void display(){
       ellipse(xpos,ypos,20,20);
