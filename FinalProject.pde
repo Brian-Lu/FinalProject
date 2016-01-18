@@ -4,9 +4,11 @@ int x = 100;
 Player P1;
 Guard g1;
 Guard g2;
-ArrayList<Guard> Guards = new ArrayList<Guard>(2);
+Prisoner PR1;
 Wall w1;
+ArrayList<Guard> Guards = new ArrayList<Guard>(2);
 ArrayList<Wall> Walls = new ArrayList<Wall>(1);
+ArrayList<Prisoner> Prisoners = new ArrayList<Prisoner>(1);
 void setup(){
   size(1000, 650);
   P1 = new Player(20.0,20.0,2,100);
@@ -15,6 +17,8 @@ void setup(){
   Guards.add(new Guard(400.0, 400.0, 1, 100));
   Wall w1 = new Wall(500,500,50,50);
   Walls.add(w1);
+  PR1 = new Prisoner(560, 560, 1);
+  Prisoners.add(PR1);
 }
 void patrol(){
   if(Guards.size() >= 1){
@@ -48,6 +52,10 @@ void PlayLevel(int level){
     if (guard.xpos == P1.xpos && guard.ypos == P1.ypos) {
       P1.lives -= 1;
     }
+  }
+  for(Prisoner prisoner : Prisoners) {
+    prisoner.display();
+    prisoner.behavior(P1);
   }
   for(Wall wall : Walls) {
     for(Guard guard : Guards){
