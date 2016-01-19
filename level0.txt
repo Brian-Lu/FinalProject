@@ -1,4 +1,4 @@
-Player 50 50
+Player 20 20
 Wall 0 0 1000 10
 Wall 0 0 10 650
 Wall 990 0 10 650
