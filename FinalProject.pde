@@ -51,8 +51,6 @@ void draw(){
 void PlayLevel(int level){
   background(204);
   DisplayEnd();
-  P1.display();
-  P1.move();
   for(Key abc : Keys) {
     abc.display();
     if (Math.abs(P1.xpos - abc.xpos) <= 2 && Math.abs(P1.ypos - abc.ypos) <= 2) {
@@ -100,6 +98,8 @@ void PlayLevel(int level){
     door.block(P1);
     door.display();
   }
+  P1.display();
+  P1.move();
 }
 
 void Load(String filename){
