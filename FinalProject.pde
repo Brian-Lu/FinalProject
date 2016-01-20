@@ -82,7 +82,7 @@ void PlayLevel(int level){
   if (P1.lives <= 0) {
       P1.speed = 0;
       mode = 2;
-      Load(level);
+      Load("level" + level + ".txt");
       P1.lives = 5;
       P1.xpos = 20;
       P1.ypos = 20;
@@ -92,7 +92,8 @@ void PlayLevel(int level){
   if(P1.xpos >= 800 && P1.xpos <= 815 && P1.ypos >= 600 && P1.ypos <= 615){
     next = level + 1;
     setLevel(next);
-    Load(next);
+    String file = "level" + next + ".txt";
+    Load(file);
     print(level);
   }
   for (Door door : Doors) {
@@ -101,16 +102,14 @@ void PlayLevel(int level){
   }
 }
 
-void Load(int Level){
+void Load(String filename){
   Guards.clear();
   Walls.clear();
   Prisoners.clear();
   Keys.clear();
   int num;
   int[] nums = new int[10];
-  String name = Level + "";
-  String file = "level" + name + ".txt";
-  String[] lines = loadStrings(file);
+  String[] lines = loadStrings(filename);
   for(int x = 0;x<lines.length;x++){
     String[] words = split(lines[x]," ");
     for(int i = 1;i<words.length;i++){
@@ -157,13 +156,127 @@ void ShowMenu(){
   if(mouseX >= 100 && mouseX <= 400 && mouseY >= 100 && mouseY <= 200){
     if(mousePressed){
       mode = 1;
-      Load(level);
+      Load("level" + level + ".txt");
     } 
+  }
+  if(mouseX >= 625 && mouseX <= 875 && mouseY >= 100 && mouseY <= 200){
+    if(mousePressed){
+      Load("clearLevel.txt");
+      mode = 3;
+      print(mode);
+    }
   }
 
 }
+void displayLevel(){
+  background(204);
+  if(P1 != null){
+    P1.display();
+  }
+  for(Key k : Keys){
+    k.display(); 
+  }
+  for(Wall wall : Walls){
+    wall.display();
+  }
+  for(Guard guard : Guards){
+    guard.display(); 
+  }
+  for(Prisoner prisoner : Prisoners){
+    prisoner.display(); 
+  }
+  for(Door door : Doors){
+    door.display(); 
+  }
+}
 void EditLevels(){
-
+  displayLevel();
+  displaySidebar();
+  Edit();
+}
+String selector = "";
+int startXcor;
+int startYcor;
+int xcor = -1;
+int ycor = -1;
+void Edit(){
+  if(mouseX>=900 && mouseY >= 0 && mouseY <= 100){
+    if(mousePressed){
+      selector = "Player";
+    }
+  }else if(mouseX>=900 && mouseY >= 100 && mouseY <= 200){
+    if(mousePressed){
+      selector = "Wall"; 
+    }
+  }else if(mouseX>=900 && mouseY >= 200 && mouseY <= 300){
+    if(mousePressed){
+      selector = "Guard";
+    }
+  }else if(mouseX>=900 && mouseY >= 300 && mouseY <= 400){
+    if(mousePressed){
+      selector = "Door";
+    }
+  }else if(mouseX>=900 && mouseY >= 400 && mouseY <= 500){
+    if(mousePressed){
+      selector = "Key";
+    }
+  }else if(mouseX>=900 && mouseY >= 500 && mouseY <= 600){
+    if(mousePressed){
+      selector = "EndSpot";
+    }
+  }
+  print(selector);
+  if(mouseX <= 900 && mouseX >= 0){
+    if(selector == "Wall"){
+      if(mousePressed){
+        xcor = mouseX;
+        ycor = mouseY;
+      }
+      if(xcor != -1 && ycor != -1){
+        fill(200,0,0);
+        rect(xcor,ycor,mouseX - xcor,mouseY-ycor);
+      }
+      if(keyPressed && key == 'a'){
+        if(xcor == -1 || ycor == -1){
+            
+        }else{
+          Walls.add(new Wall(xcor,ycor,mouseX - xcor,mouseY - ycor));
+          selector = "";
+          xcor = -1;
+          ycor = -1;
+        }
+      }
+    }else if(selector == "Guard"){
+      if(mousePressed){
+        Guards.add(new Guard(mouseX,mouseY,1,100));
+      }
+    }else if(selector == "Player"){
+      if(mousePressed){
+        P1 = new Player(mouseX,mouseY,1,100);
+        startXcor = mouseX;
+        startYcor = mouseY;
+      }
+    }else if(selector == "Door"){
+      if(mousePressed){
+        xcor = mouseX;
+        ycor = mouseY;
+      }
+      if(xcor != -1 && ycor != -1){
+        fill(200,0,200);
+        rect(xcor,ycor,mouseX - xcor,mouseY-ycor);
+      }
+      if(keyPressed && key == 'a'){
+        if(xcor == -1 || ycor == -1){
+            
+        }else{
+          Doors.add(new Door(xcor,ycor,mouseX - xcor,mouseY - ycor));
+          selector = "";
+          xcor = -1;
+          ycor = -1;
+        }
+      }
+    }
+  }
 }
 void setLevel(int Level){
   level = Level;
@@ -171,4 +284,24 @@ void setLevel(int Level){
 void DisplayEnd(){
   fill(0,200,0);
   rect(800,600,15,15);
+}
+void displaySidebar(){
+  fill(255);
+  rect(900,0,100,100);
+  rect(900,100,100,100);
+  rect(900,200,100,100);
+  rect(900,300,100,100);
+  rect(900,400,100,100);
+  rect(900,500,100,100);
+  rect(900,600,100,50);
+  fill(0);
+  PFont sidebar = createFont("Times New Roman",10, true);
+  textAlign(CENTER);
+  textFont(sidebar,10);
+  text("Player",950,50);
+  text("Wall",950,150);
+  text("Guard",950,250);
+  text("Door",950,350);
+  text("Key",950,450);
+  text("End Zone",950,550);
 }
