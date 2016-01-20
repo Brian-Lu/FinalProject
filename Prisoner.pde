@@ -13,7 +13,9 @@ class Prisoner{
     lives = Lives;
   }
   void display() {
-    ellipse(xpos, ypos, 20, 20);
+    if(lives >= 1) {
+      ellipse(xpos, ypos, 20, 20);
+    }
   }
   void behavior(Player other) {
     if (Math.abs(other.xpos - xpos) <= 2 && Math.abs(other.ypos - ypos) <= 2) {

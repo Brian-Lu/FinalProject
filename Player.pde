@@ -2,13 +2,13 @@ class Player extends Person{
    int light,lives,keys;
    Player(){
      super(); 
-     light = 20;
+     light = 50;
      lives = 5;
      keys = 0;
    }
    Player(float Xpos,float Ypos,int Speed, int Health){
      super(Xpos,Ypos,Speed,Health); 
-     light = 20;
+     light = 50;
      lives = 5;
      keys = 0;
    }
@@ -16,11 +16,11 @@ class Player extends Person{
      if (key == CODED){
        if(keyCode == UP){
          ypos -= speed * 1.0;
-       }else if(keyCode==DOWN){
+       }if(keyCode==DOWN){
          ypos += speed * 1.0;
-       }else if(keyCode==RIGHT){
+       }if(keyCode==RIGHT){
          xpos += speed * 1.0;
-       }else if(keyCode==LEFT){
+       }if(keyCode==LEFT){
          xpos -= speed * 1.0;
        }
      }
@@ -38,10 +38,10 @@ class Player extends Person{
    void display(){
       ellipse(xpos,ypos,10,10);
       fill(0);
-      rect(0, 0, 1000, ypos - 25);
-      rect(0, 0, xpos - 25, 1000);
-      rect(0, ypos + 25, 1000, 1000);
-      rect(xpos + 25, 0, 1000, 1000);
+      rect(0, 0, 1000, ypos - light);
+      rect(0, 0, xpos - light, 1000);
+      rect(0, ypos + light, 1000, 1000);
+      rect(xpos + light, 0, 1000, 1000);
       /*rect( xpos - 10, ypos + 10, 20, 40);
       line(xpos + 10, ypos + 20, xpos + 15, ypos + 5);
       line(xpos - 10, ypos + 20, xpos - 15, ypos + 5);
