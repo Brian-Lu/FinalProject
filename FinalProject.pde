@@ -2,11 +2,8 @@ int level, mode, maxLevel;
 int x = 100;
 int next;
 Player P1;
-/*Guard g1, g2;
-Prisoner PR1;
-Wall w1;
-Key k1;
-Door d1;*/
+Endspot E1;
+// ArrayLists temporarily hold each object types for each specific level
 ArrayList<Guard> Guards = new ArrayList<Guard>(1);
 ArrayList<Wall> Walls = new ArrayList<Wall>(1);
 ArrayList<Prisoner> Prisoners = new ArrayList<Prisoner>(1);
@@ -14,17 +11,7 @@ ArrayList<Key> Keys = new ArrayList<Key>(1);
 ArrayList<Door> Doors = new ArrayList<Door>(1);
 void setup(){
   size(1000, 650);
-  //P1 = new Player(20.0,20,2,100);
   mode = 2;
-  /*Guards.add(new Guard(80.0,80.0,1,100));
-  Wall w1 = new Wall(500,500,50,50);
-  Walls.add(w1);
-  PR1 = new Prisoner(560, 560, 1);
-  Prisoners.add(PR1);
-  k1 = new Key(420, 420);
-  Keys.add(k1);
-  d1 = new Door();
-  Doors.add(d1);*/
 }
 void patrol(){
   if(Guards.size() >= 1){
@@ -50,7 +37,7 @@ void draw(){
 }
 void PlayLevel(int level){
   background(204);
-  DisplayEnd();
+  E1.display();
   for(Key abc : Keys) {
     abc.display();
     if (Math.abs(P1.xpos - abc.xpos) <= 2 && Math.abs(P1.ypos - abc.ypos) <= 2) {
@@ -86,7 +73,7 @@ void PlayLevel(int level){
       P1.speed = 2;
       
   }
-  if(P1.xpos >= 800 && P1.xpos <= 815 && P1.ypos >= 600 && P1.ypos <= 615){
+  if(P1.xpos >= E1.xpos  && P1.xpos <= E1.xpos + E1.Width && P1.ypos >= E1.ypos && P1.ypos <= E1.ypos + E1.Height){
     next = level + 1;
     setLevel(next);
     String file = "level" + next + ".txt";
@@ -106,10 +93,14 @@ void Load(String filename){
   Prisoners.clear();
   Keys.clear();
   int num;
-  int[] nums = new int[10];
+  int[] nums = new int[20];
   String[] lines = loadStrings(filename);
   for(int x = 0;x<lines.length;x++){
     String[] words = split(lines[x]," ");
+    /* Since words has all of the data in strings,
+    we parse all the data into ints and save them in
+    int[] nums.
+    */
     for(int i = 1;i<words.length;i++){
       if(!(words[i]==null)){
         num = Integer.parseInt(words[i]);
@@ -130,7 +121,9 @@ void Load(String filename){
     }else if(words[0].equals("Prisoner")){
       Prisoners.add(new Prisoner(nums[0],nums[1],3));
     }else if(words[0].equals("Key")){
-      //initialize a key at nums[0],nums[1]
+      Keys.add(new Key(nums[0],nums[1]));
+    }else if(words[0].equals("Endspot")){
+      E1 = new Endspot(nums[0],nums[1],nums[2],nums[3]); 
     }
   }
 }
@@ -186,10 +179,15 @@ void displayLevel(){
     door.display(); 
   }
 }
+boolean Testing;
 void EditLevels(){
   displayLevel();
   displaySidebar();
-  Edit();
+  if(Testing){
+    test(); 
+  }else{
+    Edit();
+  }
 }
 String selector = "";
 int startXcor;
@@ -223,7 +221,11 @@ void Edit(){
     }
   }else if(mouseX>=900 && mouseY >= 300 && mouseY <= 350){
     if(mousePressed){
-      
+
+    }
+  }else if(mouseX>=900 && mouseY >= 350 && mouseY <= 400){
+    if(mousePressed){
+      Testing = true;
     }
   }else if(mouseX>=900 && mouseY >= 350 && mouseY <= 400){
     if(mousePressed){
@@ -289,33 +291,39 @@ void Edit(){
       if(mousePressed){
         Keys.add(new Key(mouseX,mouseY));
       }
+    }else if(selector == "EndSpot"){
+      if(mousePressed){
+        E1 = new Endspot(mouseX,mouseY,20,20);
+      }
     }
-
   }
+}
+void test(){
+   
 }
 PrintWriter output;
 void save(String name){
-  output = createWriter("level" + name + ".txt");
-  output.println("Player "+startXcor+" "+ startYcor);
-  for(Wall wall : Walls){
-    output.println("Wall "+wall.xpos+" "+wall.ypos+" "+wall.Width+" "+wall.Height);
-  }
-  for(Guard guard : Guards){
-    output.println("Guard "+guard.xpos+" "+guard.ypos);
-  }
-  for(Door door : Doors){
-    output.println("Door "+door.xpos+" "+door.ypos+" "+door.Width+" "+door.Height);
-  }
-  for(Key k : Keys){
-    output.println("Key " +k.xpos+" "+k.ypos);
+  if(P1 == null || E1 == null){
+    
+  }else{
+    output = createWriter("level" + name + ".txt");
+    output.println("Player "+startXcor+" "+ startYcor);
+    for(Wall wall : Walls){
+      output.println("Wall "+wall.xpos+" "+wall.ypos+" "+wall.Width+" "+wall.Height);
+    }
+    for(Guard guard : Guards){
+      output.println("Guard "+guard.xpos+" "+guard.ypos);
+    }
+    for(Door door : Doors){
+      output.println("Door "+door.xpos+" "+door.ypos+" "+door.Width+" "+door.Height);
+    }
+    for(Key k : Keys){
+      output.println("Key " +k.xpos+" "+k.ypos);
+    }
   }
 }
 void setLevel(int Level){
   level = Level;
-}
-void DisplayEnd(){
-  fill(0,200,0);
-  rect(800,600,15,15);
 }
 void displaySidebar(){
   fill(255);
@@ -340,7 +348,11 @@ void displaySidebar(){
   text("Key",950,225);
   text("End Zone",950,275);
   text("Undo",950,325);
-  text("Test",950,375);
+  if(Testing){
+    text("Test",950,375);
+  }else{
+    text("Reset",950,375);
+  }
   text("Save",950,425);
   text("Back",950,475);
 }
