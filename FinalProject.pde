@@ -275,7 +275,27 @@ void Edit(){
           ycor = -1;
         }
       }
+    }else if(selector == "Key"){
+      Keys.add(new Key(mouseX,mouseY)); 
     }
+
+  }
+}
+PrintWriter output;
+void save(String name){
+  output = createWriter("level" + name + ".txt");
+  output.println("Player "+startXcor+" "+ startYcor);
+  for(Wall wall : Walls){
+    output.println("Wall "+wall.xpos+" "+wall.ypos+" "+wall.Width+" "+wall.Height);
+  }
+  for(Guard guard : Guards){
+    output.println("Guard "+guard.xpos+" "+guard.ypos);
+  }
+  for(Door door : Doors){
+    output.println("Door "+door.xpos+" "+door.ypos+" "+door.Width+" "+door.Height);
+  }
+  for(Key k : Keys){
+    output.println("Key " +k.xpos+" "+k.ypos);
   }
 }
 void setLevel(int Level){

@@ -1,4 +1,5 @@
 class Key{
+  boolean used;
   int xpos,ypos;
   Key(){
     xpos = 420;
@@ -8,8 +9,16 @@ class Key{
     xpos = xcor;
     ypos = ycor;
   }
-  void display() {
-    rect(xpos, ypos, 10, 15);
+  void pickUp(){
+    used = true;
   }
+
+  void display() {
+    if(!used){
+      fill(255,204,0);
+      rect(xpos, ypos, 10, 15);
+    }
+  }
+
   
 }
