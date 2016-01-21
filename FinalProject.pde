@@ -55,7 +55,6 @@ void PlayLevel(int level){
     abc.display();
     if (Math.abs(P1.xpos - abc.xpos) <= 2 && Math.abs(P1.ypos - abc.ypos) <= 2) {
       P1.addKey();
-      print(P1.keys);
     }
   }
   for(Guard guard : Guards){
@@ -92,7 +91,6 @@ void PlayLevel(int level){
     setLevel(next);
     String file = "level" + next + ".txt";
     Load(file);
-    print(level);
   }
   for (Door door : Doors) {
     door.block(P1);
@@ -163,7 +161,6 @@ void ShowMenu(){
     if(mousePressed){
       Load("clearLevel.txt");
       mode = 3;
-      print(mode);
     }
   }
 
@@ -200,29 +197,42 @@ int startYcor;
 int xcor = -1;
 int ycor = -1;
 void Edit(){
-  if(mouseX>=900 && mouseY >= 0 && mouseY <= 100){
+  if(mouseX>=900 && mouseY >= 0 && mouseY <= 50){
     if(mousePressed){
       selector = "Player";
     }
-  }else if(mouseX>=900 && mouseY >= 100 && mouseY <= 200){
+  }else if(mouseX>=900 && mouseY >= 50 && mouseY <= 100){
     if(mousePressed){
       selector = "Wall"; 
     }
-  }else if(mouseX>=900 && mouseY >= 200 && mouseY <= 300){
+  }else if(mouseX>=900 && mouseY >= 100 && mouseY <= 150){
     if(mousePressed){
       selector = "Guard";
     }
-  }else if(mouseX>=900 && mouseY >= 300 && mouseY <= 400){
+  }else if(mouseX>=900 && mouseY >= 150 && mouseY <= 200){
     if(mousePressed){
       selector = "Door";
     }
-  }else if(mouseX>=900 && mouseY >= 400 && mouseY <= 500){
+  }else if(mouseX>=900 && mouseY >= 200 && mouseY <= 250){
     if(mousePressed){
       selector = "Key";
     }
-  }else if(mouseX>=900 && mouseY >= 500 && mouseY <= 600){
+  }else if(mouseX>=900 && mouseY >= 250 && mouseY <= 300){
     if(mousePressed){
       selector = "EndSpot";
+    }
+  }else if(mouseX>=900 && mouseY >= 300 && mouseY <= 350){
+    if(mousePressed){
+      
+    }
+  }else if(mouseX>=900 && mouseY >= 350 && mouseY <= 400){
+    if(mousePressed){
+      
+    }
+  }else if(mouseX>=900 && mouseY >= 450 && mouseY <= 500){
+    if(mousePressed){
+      selector = "";
+      mode = 2;
     }
   }
   print(selector);
@@ -276,7 +286,9 @@ void Edit(){
         }
       }
     }else if(selector == "Key"){
-      Keys.add(new Key(mouseX,mouseY)); 
+      if(mousePressed){
+        Keys.add(new Key(mouseX,mouseY));
+      }
     }
 
   }
@@ -307,21 +319,28 @@ void DisplayEnd(){
 }
 void displaySidebar(){
   fill(255);
-  rect(900,0,100,100);
-  rect(900,100,100,100);
-  rect(900,200,100,100);
-  rect(900,300,100,100);
-  rect(900,400,100,100);
-  rect(900,500,100,100);
-  rect(900,600,100,50);
+  rect(900,0,100,50);
+  rect(900,50,100,50);
+  rect(900,100,100,50);
+  rect(900,150,100,50);
+  rect(900,200,100,50);
+  rect(900,250,100,50);
+  rect(900,300,100,50);
+  rect(900,350,100,50);
+  rect(900,400,100,50);
+  rect(900,450,100,50);
   fill(0);
   PFont sidebar = createFont("Times New Roman",10, true);
   textAlign(CENTER);
   textFont(sidebar,10);
-  text("Player",950,50);
-  text("Wall",950,150);
-  text("Guard",950,250);
-  text("Door",950,350);
-  text("Key",950,450);
-  text("End Zone",950,550);
+  text("Player",950,25);
+  text("Wall",950,75);
+  text("Guard",950,125);
+  text("Door",950,175);
+  text("Key",950,225);
+  text("End Zone",950,275);
+  text("Undo",950,325);
+  text("Test",950,375);
+  text("Save",950,425);
+  text("Back",950,475);
 }

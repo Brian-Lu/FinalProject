@@ -18,14 +18,13 @@ class Prisoner{
     }
   }
   void behavior(Player other) {
-    if (Math.abs(other.xpos - xpos) <= 2 && Math.abs(other.ypos - ypos) <= 2) {
-      if(other.keys >= 1) {
-        other.keys -= 1;
-        other.lives += lives;
-        lives = 0;
-        xpos = -15;
-        ypos = -20;
-      }
+    if (Math.abs(other.xpos - xpos) <= 2 && Math.abs(other.ypos - ypos) <= 5) {
+      other.lives += lives;
+      lives = 0;
+      xpos = -15;
+      ypos = -20;
+      
+      
     }
   }
 }
