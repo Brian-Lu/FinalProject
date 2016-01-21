@@ -349,9 +349,9 @@ void displaySidebar(){
   text("End Zone",950,275);
   text("Undo",950,325);
   if(Testing){
-    text("Test",950,375);
-  }else{
     text("Reset",950,375);
+  }else{
+    text("Test",950,375);
   }
   text("Save",950,425);
   text("Back",950,475);
