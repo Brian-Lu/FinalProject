@@ -3,16 +3,23 @@ class Guard extends Person{
    boolean alert;
    int change;
    String direction;
+   float[][] Posts;
    Guard(){
      super();
      alert = false;
      type = 1;
+     Posts = new float[10][2];
+     Posts[0][0] = xpos;
+     Posts[0][1] = ypos;
    }
    Guard(float Xpos,float Ypos,int Speed, int health){
      super(Xpos,Ypos,Speed,health);
      alert = false;
      type = 1;
      change = 0;
+     Posts = new float[10][2];
+     Posts[0][0] = xpos;
+     Posts[0][1] = ypos;
    }
    Guard(float Xpos, float Ypos, int Speed, int health, int Type) {
      this(Xpos, Ypos, Speed, health);
