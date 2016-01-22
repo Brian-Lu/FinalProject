@@ -1,25 +1,28 @@
 class Guard extends Person{
    int type, dir;
-   boolean alert;
    int change;
    String direction;
    float[][] Posts;
+   boolean lookingFor;
+   int lookingforPost;
    Guard(){
      super();
-     alert = false;
      type = 1;
      Posts = new float[10][2];
      Posts[0][0] = xpos;
      Posts[0][1] = ypos;
+     lookingFor = false;
+     lookingforPost = 0;
    }
    Guard(float Xpos,float Ypos,int Speed, int health){
      super(Xpos,Ypos,Speed,health);
-     alert = false;
      type = 1;
      change = 0;
      Posts = new float[10][2];
      Posts[0][0] = xpos;
      Posts[0][1] = ypos;
+     lookingFor = false;
+     lookingforPost = 0;
    }
    Guard(float Xpos, float Ypos, int Speed, int health, int Type) {
      this(Xpos, Ypos, Speed, health);
@@ -48,19 +51,37 @@ class Guard extends Person{
      rect(xpos,ypos,5,5); 
    }
    void move() {
-     if(change == 0){
-       dir = int(random(1,4));
-       change = 10;
+     if (type == 1) {
+       if(change == 0){
+         dir = int(random(1,4));
+         change = 10;
+       }
+       if (dir == 1){
+         ypos -= 1; 
+       }else if (dir == 2){
+         xpos += 1; 
+       }else if (dir == 3){
+         ypos += 1;
+       }else{
+         xpos -= 1;
+       }
+       change--;
      }
-     if (dir == 1){
-       ypos -= 1; 
-     }else if (dir == 2){
-       xpos += 1; 
-     }else if (dir == 3){
-       ypos += 1;
-     }else{
-       xpos -= 1;
-     }
-     change--;
+     if (type == 2) {
+       if(lookingFor) {
+         if(Posts[lookingForPost][1] > xpos) {
+           xpos += speed *1.0;
+         }
+         if(Posts[lookingForPost][1] < xpos) {
+           xpos -= speed * 1.0;
+         }
+         if(Posts[lookingForPost][2] > ypos) {
+           ypos += speed * 1.0;
+         }
+         if(Posts[lookingForPost][2] < ypos) {
+           ypos -= speed * 1.0;
+         }
+       }
+     }     
    }
 }
