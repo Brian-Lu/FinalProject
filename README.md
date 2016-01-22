@@ -36,3 +36,12 @@ Goals:
 Attempt to save levels. 
 
 Thursday January 21 2016: 
+
+New Features: 
+Started to implement playing levels made in the level editor as a test.
+New Bugfixes:
+None
+New Bugs:
+Simply not finished with said test function, and the EndZone class needs to be refined to work better. 
+Goals:
+Fix test function and refine EndZone class. 
