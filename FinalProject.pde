@@ -85,7 +85,7 @@ void PlayLevel(int level){
   P1.display();
   P1.move();
 }
-
+Guard g1;
 void Load(String filename){
   Guards.clear();
   Walls.clear();
@@ -117,7 +117,14 @@ void Load(String filename){
     if(words[0].equals("Player")){
       P1 = new Player(nums[0],nums[1],1,100);
     }else if(words[0].equals("Guard")){
-      Guards.add(new Guard(nums[0],nums[1],nums[2],100));
+      g1 = new Guard(nums[0],nums[1],1,100,nums[2]);
+      int n = 3;
+      while(nums[n]!=0 && nums[n+1]!=0){
+        g1.Posts.add(new Post(nums[n],nums[n+1]));
+        print(g1.Posts.get(g1.Posts.size()-1).xpos);
+        n += 2;
+      }
+      Guards.add(g1);
     }else if(words[0].equals("Wall")){
       Walls.add(new Wall(nums[0],nums[1],nums[2],nums[3]));
     }else if(words[0].equals("Prisoner")){
@@ -383,8 +390,8 @@ void Undo(){
 void EditReset(){
  P1.editReset();
  for(Guard guard : Guards){
-   guard.xpos = guard.Posts[0][0];
-   guard.ypos = guard.Posts[0][1];
+   guard.xpos = guard.Posts.get(0).xpos;
+   guard.ypos = guard.Posts.get(0).ypos;
  }
  for(Prisoner p : Prisoners){
    p.lives = 1; 

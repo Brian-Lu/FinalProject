@@ -1,26 +1,23 @@
 class Guard extends Person{
-   int type, dir,numPosts;
+   int type, dir;
    int change;
    String direction;
-   float[][] Posts;
+   ArrayList<Post> Posts;
    boolean lookingFor;
    int lookingForPost;
    Guard(){
      super();
      type = 1;
-     Posts = new float[10][2];
-     Posts[0][0] = xpos;
-     Posts[0][1] = ypos;
-     lookingFor = false;
+     Posts = new ArrayList<Post>(1);
+     Posts.add(new Post(xpos,ypos));
      lookingForPost = 0;
    }
    Guard(float Xpos,float Ypos,int Speed, int health){
      super(Xpos,Ypos,Speed,health);
      type = 1;
      change = 0;
-     Posts = new float[10][2];
-     Posts[0][0] = xpos;
-     Posts[0][1] = ypos;
+     Posts = new ArrayList<Post>(1);
+     Posts.add(new Post(xpos,ypos));
      lookingFor = false;
      lookingForPost = 0;
    }
@@ -68,27 +65,27 @@ class Guard extends Person{
        change--;
      }
      if (type == 2) {
-       if(lookingFor) {
-         if(Posts[lookingForPost][0] > xpos) {
-           xpos += speed *1.0;
-         }
-         if(Posts[lookingForPost][0] < xpos) {
-           xpos -= speed * 1.0;
-         }
-         if(Posts[lookingForPost][1] > ypos) {
-           ypos += speed * 1.0;
-         }
-         if(Posts[lookingForPost][1] < ypos) {
-           ypos -= speed * 1.0;
-         }
-         if(xpos == Posts[lookingForPost][1] && ypos == Posts[lookingForPost][2]){
-           if(lookingForPost > numPosts){
+       print(lookingForPost);
+       if(xpos == Posts.get(lookingForPost).xpos && ypos == Posts.get(lookingForPost).ypos){
+           if(lookingForPost >= Posts.size()-1){
               lookingForPost = 0; 
            }else{
               lookingForPost += 1;
            }
-         }
        }
+         if(Posts.get(lookingForPost).xpos > xpos) {
+           xpos += speed *1.0;
+         }
+         if(Posts.get(lookingForPost).xpos < xpos) {
+           xpos -= speed * 1.0;
+         }
+         if(Posts.get(lookingForPost).ypos > ypos) {
+           ypos += speed * 1.0;
+         }
+         if(Posts.get(lookingForPost).ypos < ypos) {
+           ypos -= speed * 1.0;
+         }
+         
      }     
    }
 }
