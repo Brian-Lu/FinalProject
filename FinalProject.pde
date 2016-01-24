@@ -91,6 +91,9 @@ void Load(String filename){
   Walls.clear();
   Prisoners.clear();
   Keys.clear();
+  Doors.clear();
+  P1 = null;
+  E1 = null;
   int num;
   int[] nums = new int[20];
   String[] lines = loadStrings(filename);
@@ -159,6 +162,9 @@ void ShowMenu(){
 }
 void displayLevel(){
   background(204);
+  if(E1 != null){
+    E1.display();
+  }
   for(Key k : Keys){
     k.display(); 
   }
@@ -236,7 +242,7 @@ void Edit(){
       mode = 2;
     }
   }
-  print(selector);
+  //print(selector);
   if(mouseX <= 900 && mouseX >= 0){
     if(selector == "Wall"){
       if(mousePressed){
@@ -260,10 +266,11 @@ void Edit(){
     }else if(selector == "Guard"){
       if(mousePressed){
         Guards.add(new Guard(mouseX,mouseY,1,100));
+        selector = "";
       }
     }else if(selector == "Player"){
       if(mousePressed){
-        P1 = new Player(mouseX,mouseY,1,100);
+        P1 = new Player(mouseX,mouseY,1,100,mouseX,mouseY);
         startXcor = mouseX;
         startYcor = mouseY;
       }
@@ -289,70 +296,87 @@ void Edit(){
     }else if(selector == "Key"){
       if(mousePressed){
         Keys.add(new Key(mouseX,mouseY));
+        selector = "";
       }
     }else if(selector == "EndSpot"){
       if(mousePressed){
         E1 = new Endspot(mouseX,mouseY,20,20);
+        selector = "";
       }
     }
   }
 }
+void EditReset(){
+ P1.editReset();
+ for(Guard guard : Guards){
+   guard.xpos = guard.Posts[0][0];
+   guard.ypos = guard.Posts[0][1];
+ }
+ for(Prisoner p : Prisoners){
+   p.lives = 1; 
+ }
+ for(Key k : Keys){
+   k.used = false;
+ }
+ for(Door door : Doors){
+   door.isOpen = false; 
+ }
+ Testing = false;
+}
+//int Color = 0;
 void test(){
-  background(204);
-  for(Key abc : Keys) {
-    if (Math.abs(P1.xpos - abc.xpos) <= 2 && Math.abs(P1.ypos - abc.ypos) <= 2) {
-      P1.addKey();
+  if(P1== null || E1 == null){
+    /*while(Color <= 204){
+      notice = createFont("Times New Roman",20);
+      textFont(notice);
+      textAlign(CENTER);
+      Color += 1;
+      fill(Color); 
+      text("Please add a player AND an endspot",500,325);
+    }*/
+  }else{
+    P1.move();
+    for(Key abc : Keys) {
+      if (Math.abs(P1.xpos - abc.xpos) <= 2 && Math.abs(P1.ypos - abc.ypos) <= 2) {
+        P1.addKey();
+      }
     }
-  }
-  for(Guard guard : Guards){
-    if (guard.xpos == P1.xpos && guard.ypos == P1.ypos) {
-      P1.lives -= 1;
-    }
-  }
-  for(Prisoner prisoner : Prisoners) {
-    prisoner.behavior(P1);
-  }
-  for(Wall wall : Walls) {
     for(Guard guard : Guards){
-      wall.block(guard);
+      if (guard.xpos == P1.xpos && guard.ypos == P1.ypos) {
+        P1.lives -= 1;
+      }
     }
-    wall.block(P1);
-  }
-  patrol();
-  if (P1.lives <= 0) {
-      P1.speed = 0;
-      mode = 2;
-      Load("level" + level + ".txt");
-      P1.lives = 5;
-      P1.xpos = 20;
-      P1.ypos = 20;
-      P1.speed = 2;
-      
-  }
-  if(P1.xpos >= E1.xpos  && P1.xpos <= E1.xpos + E1.Width && P1.ypos >= E1.ypos && P1.ypos <= E1.ypos + E1.Height){
-    for(Guard guard : Guards){
-      guard.xpos = guard.Posts[0][0];
-      guard.ypos = guard.Posts[0][1];
+    for(Prisoner prisoner : Prisoners) {
+      prisoner.behavior(P1);
     }
-    for(Prisoner p : Prisoners){
-      p.lives = 1; 
+    for(Wall wall : Walls) {
+      for(Guard guard : Guards){
+        wall.block(guard);
+      }
+      wall.block(P1);
     }
-    for(Key k : Keys){
-      k.used = false;
+    patrol();
+    if (P1.lives <= 0) {
+        EditReset();
     }
-    for(Door door : Doors){
-      door.isOpen = false; 
+    if(P1.xpos >= E1.xpos  && P1.xpos <= E1.xpos + E1.Width && P1.ypos >= E1.ypos && P1.ypos <= E1.ypos + E1.Height){
+      EditReset();
     }
-    Testing = false;
-  }
-  for (Door door : Doors) {
-    door.block(P1);
+    for (Door door : Doors) {
+      door.block(P1);
+    }
+    if (mouseX>=900 && mouseY>=350 && mouseY <= 400){
+      if(mousePressed){
+        EditReset();
+      }
+    }
   }
 }
+PFont notice;
 PrintWriter output;
 void save(String name){
   if(P1 == null || E1 == null){
-    
+ 
   }else{
     output = createWriter("level" + name + ".txt");
     output.println("Player "+startXcor+" "+ startYcor);

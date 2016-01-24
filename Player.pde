@@ -1,16 +1,30 @@
 class Player extends Person{
    int light,lives,keys;
+   int EditX, EditY;
    Player(){
      super(); 
      light = 50;
      lives = 5;
      keys = 0;
+     EditX = -1;
+     EditY = -1;
    }
    Player(float Xpos,float Ypos,int Speed, int Health){
      super(Xpos,Ypos,Speed,Health); 
      light = 50;
      lives = 5;
      keys = 0;
+     EditX = -1;
+     EditY = -1;
+   }
+   Player(float Xpos,float Ypos,int Speed, int Health,int editx,int edity){
+    this(Xpos,Ypos,Speed,Health);
+    EditX = editx;
+    EditY = edity;
+   }
+   void editReset(){
+     xpos = EditX;
+     ypos = EditY;
    }
    void move(){
      if (key == CODED){
@@ -37,11 +51,13 @@ class Player extends Person{
    
    void display(){
       ellipse(xpos,ypos,10,10);
-      fill(0);
-      rect(0, 0, 1000, ypos - light);
-      rect(0, 0, xpos - light, 1000);
-      rect(0, ypos + light, 1000, 1000);
-      rect(xpos + light, 0, 1000, 1000);
+      if(mode == 1){
+        fill(0);
+        rect(0, 0, 1000, ypos - light);
+        rect(0, 0, xpos - light, 1000);
+        rect(0, ypos + light, 1000, 1000);
+        rect(xpos + light, 0, 1000, 1000);
+      }
       /*rect( xpos - 10, ypos + 10, 20, 40);
       line(xpos + 10, ypos + 20, xpos + 15, ypos + 5);
       line(xpos - 10, ypos + 20, xpos - 15, ypos + 5);
