@@ -195,6 +195,7 @@ void EditLevels(){
   }
 }
 String selector = "";
+ArrayList<String> LastSelector = new ArrayList<String>(1);
 int startXcor;
 int startYcor;
 int xcor = -1;
@@ -222,21 +223,26 @@ void Edit(){
     }
   }else if(mouseX>=900 && mouseY >= 250 && mouseY <= 300){
     if(mousePressed){
-      selector = "EndSpot";
+      selector = "Prisoner";
     }
   }else if(mouseX>=900 && mouseY >= 300 && mouseY <= 350){
     if(mousePressed){
-
+      selector = "Endspot";
     }
   }else if(mouseX>=900 && mouseY >= 350 && mouseY <= 400){
+    if(mousePressed){
+      //Undo();
+    }
+  }else if(mouseX>=900 && mouseY >= 400 && mouseY <= 450){
     if(mousePressed){
       Testing = true;
     }
-  }else if(mouseX>=900 && mouseY >= 350 && mouseY <= 400){
-    if(mousePressed){
-      
-    }
   }else if(mouseX>=900 && mouseY >= 450 && mouseY <= 500){
+    if(mousePressed){
+      selector = "";
+      mode = 2;
+    }
+  }else if(mouseX>=900 && mouseY >= 500 && mouseY <= 550){
     if(mousePressed){
       selector = "";
       mode = 2;
@@ -259,6 +265,7 @@ void Edit(){
         }else{
           Walls.add(new Wall(xcor,ycor,mouseX - xcor,mouseY - ycor));
           selector = "";
+          LastSelector.add("Wall");
           xcor = -1;
           ycor = -1;
         }
@@ -267,12 +274,14 @@ void Edit(){
       if(mousePressed){
         Guards.add(new Guard(mouseX,mouseY,1,100));
         selector = "";
+        LastSelector.add("Guard");
       }
     }else if(selector == "Player"){
       if(mousePressed){
         P1 = new Player(mouseX,mouseY,1,100,mouseX,mouseY);
         startXcor = mouseX;
         startYcor = mouseY;
+        LastSelector.add("Player");
       }
     }else if(selector == "Door"){
       if(mousePressed){
@@ -289,6 +298,7 @@ void Edit(){
         }else{
           Doors.add(new Door(xcor,ycor,mouseX - xcor,mouseY - ycor));
           selector = "";
+          LastSelector.add("Door");
           xcor = -1;
           ycor = -1;
         }
@@ -297,13 +307,77 @@ void Edit(){
       if(mousePressed){
         Keys.add(new Key(mouseX,mouseY));
         selector = "";
+        LastSelector.add("Key");
+      }
+    }else if(selector == "Prisoner"){
+      if(mousePressed){
+        Prisoners.add(new Prisoner(mouseX,mouseY,5));
+        selector = "";
+        LastSelector.add("Prisoner");
       }
     }else if(selector == "EndSpot"){
       if(mousePressed){
         E1 = new Endspot(mouseX,mouseY,20,20);
         selector = "";
+        LastSelector.add("Endspot");
       }
     }
+  }
+}
+void Undo(){
+  if(!LastSelector.isEmpty()){
+  if(LastSelector.get(LastSelector.size()-1) == "Wall"){
+    if(Walls.size() >= 1){
+      Walls.remove(Walls.size()-1);
+    }
+    if(LastSelector.size() >= 1){
+      LastSelector.remove(LastSelector.size()-1);
+    }
+  }
+  if(LastSelector.get(LastSelector.size()-1) == "Door"){
+    if(Doors.size() >= 1){
+      Doors.remove(Doors.size()-1);
+    }
+    if(LastSelector.size() >= 1){
+      LastSelector.remove(LastSelector.size()-1);
+    }
+  }
+  if(LastSelector.get(LastSelector.size()-1) == "Player"){
+    P1 = null;
+    if(LastSelector.size() >= 1){
+      LastSelector.remove(LastSelector.size()-1);
+    }
+  }
+  if(LastSelector.get(LastSelector.size()-1) == "Guard"){
+    if(Guards.size() >= 1){
+      Guards.remove(Guards.size()-1);
+    }
+    if(LastSelector.size() >= 1){
+      LastSelector.remove(LastSelector.size()-1);
+    }
+  }
+  if(LastSelector.get(LastSelector.size()-1) == "Key"){
+    if(Keys.size() >= 1){
+      Keys.remove(Keys.size()-1);
+    }
+    if(LastSelector.size() >= 1){
+      LastSelector.remove(LastSelector.size()-1);
+    }
+  }
+  if(LastSelector.get(LastSelector.size()-1) == "Endspot"){
+    E1 = null;
+    if(LastSelector.size() >= 1){
+      LastSelector.remove(LastSelector.size()-1);
+    }
+  }
+  if(LastSelector.get(LastSelector.size()-1) == "Prisoner"){
+    if(Prisoners.size() >= 1){
+      Prisoners.remove(Prisoners.size()-1);
+    }
+    if(LastSelector.size() >= 1){
+      LastSelector.remove(LastSelector.size()-1);
+    }
+  }
   }
 }
 void EditReset(){
@@ -342,7 +416,7 @@ void test(){
       }
     }
     for(Guard guard : Guards){
-      if (guard.xpos == P1.xpos && guard.ypos == P1.ypos) {
+      if (Math.abs(guard.xpos - P1.xpos) <= 2 && Math.abs(guard.ypos - P1.ypos) <= 2) {
         P1.lives -= 1;
       }
     }
@@ -409,6 +483,9 @@ void displaySidebar(){
   rect(900,350,100,50);
   rect(900,400,100,50);
   rect(900,450,100,50);
+  rect(900,500,100,50);
+  rect(900,550,100,50);
+  rect(900,600,100,50);
   fill(0);
   PFont sidebar = createFont("Times New Roman",10, true);
   textAlign(CENTER);
@@ -418,13 +495,14 @@ void displaySidebar(){
   text("Guard",950,125);
   text("Door",950,175);
   text("Key",950,225);
-  text("End Zone",950,275);
-  text("Undo",950,325);
+  text("Prisoner",950,275);
+  text("End Zone",950,325);
+  text("Undo",950,375);
   if(Testing){
-    text("Reset",950,375);
+    text("Reset",950,425);
   }else{
-    text("Test",950,375);
+    text("Test",950,425);
   }
-  text("Save",950,425);
-  text("Back",950,475);
+  text("Save",950,475);
+  text("Back",950,525);
 }
