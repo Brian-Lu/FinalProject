@@ -1,10 +1,10 @@
 class Guard extends Person{
-   int type, dir;
+   int type, dir,numPosts;
    int change;
    String direction;
    float[][] Posts;
    boolean lookingFor;
-   int lookingforPost;
+   int lookingForPost;
    Guard(){
      super();
      type = 1;
@@ -12,7 +12,7 @@ class Guard extends Person{
      Posts[0][0] = xpos;
      Posts[0][1] = ypos;
      lookingFor = false;
-     lookingforPost = 0;
+     lookingForPost = 0;
    }
    Guard(float Xpos,float Ypos,int Speed, int health){
      super(Xpos,Ypos,Speed,health);
@@ -22,7 +22,7 @@ class Guard extends Person{
      Posts[0][0] = xpos;
      Posts[0][1] = ypos;
      lookingFor = false;
-     lookingforPost = 0;
+     lookingForPost = 0;
    }
    Guard(float Xpos, float Ypos, int Speed, int health, int Type) {
      this(Xpos, Ypos, Speed, health);
@@ -69,17 +69,24 @@ class Guard extends Person{
      }
      if (type == 2) {
        if(lookingFor) {
-         if(Posts[lookingForPost][1] > xpos) {
+         if(Posts[lookingForPost][0] > xpos) {
            xpos += speed *1.0;
          }
-         if(Posts[lookingForPost][1] < xpos) {
+         if(Posts[lookingForPost][0] < xpos) {
            xpos -= speed * 1.0;
          }
-         if(Posts[lookingForPost][2] > ypos) {
+         if(Posts[lookingForPost][1] > ypos) {
            ypos += speed * 1.0;
          }
-         if(Posts[lookingForPost][2] < ypos) {
+         if(Posts[lookingForPost][1] < ypos) {
            ypos -= speed * 1.0;
+         }
+         if(xpos == Posts[lookingForPost][1] && ypos == Posts[lookingForPost][2]){
+           if(lookingForPost > numPosts){
+              lookingForPost = 0; 
+           }else{
+              lookingForPost += 1;
+           }
          }
        }
      }     

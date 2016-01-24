@@ -159,9 +159,6 @@ void ShowMenu(){
 }
 void displayLevel(){
   background(204);
-  if(P1 != null){
-    P1.display();
-  }
   for(Key k : Keys){
     k.display(); 
   }
@@ -176,6 +173,9 @@ void displayLevel(){
   }
   for(Door door : Doors){
     door.display(); 
+  }
+  if(P1 != null){
+    P1.display();
   }
 }
 boolean Testing;
@@ -298,7 +298,56 @@ void Edit(){
   }
 }
 void test(){
-   
+  background(204);
+  for(Key abc : Keys) {
+    if (Math.abs(P1.xpos - abc.xpos) <= 2 && Math.abs(P1.ypos - abc.ypos) <= 2) {
+      P1.addKey();
+    }
+  }
+  for(Guard guard : Guards){
+    if (guard.xpos == P1.xpos && guard.ypos == P1.ypos) {
+      P1.lives -= 1;
+    }
+  }
+  for(Prisoner prisoner : Prisoners) {
+    prisoner.behavior(P1);
+  }
+  for(Wall wall : Walls) {
+    for(Guard guard : Guards){
+      wall.block(guard);
+    }
+    wall.block(P1);
+  }
+  patrol();
+  if (P1.lives <= 0) {
+      P1.speed = 0;
+      mode = 2;
+      Load("level" + level + ".txt");
+      P1.lives = 5;
+      P1.xpos = 20;
+      P1.ypos = 20;
+      P1.speed = 2;
+      
+  }
+  if(P1.xpos >= E1.xpos  && P1.xpos <= E1.xpos + E1.Width && P1.ypos >= E1.ypos && P1.ypos <= E1.ypos + E1.Height){
+    for(Guard guard : Guards){
+      guard.xpos = guard.Posts[0][0];
+      guard.ypos = guard.Posts[0][1];
+    }
+    for(Prisoner p : Prisoners){
+      p.lives = 1; 
+    }
+    for(Key k : Keys){
+      k.used = false;
+    }
+    for(Door door : Doors){
+      door.isOpen = false; 
+    }
+    Testing = false;
+  }
+  for (Door door : Doors) {
+    door.block(P1);
+  }
 }
 PrintWriter output;
 void save(String name){
