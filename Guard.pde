@@ -85,6 +85,9 @@ class Guard extends Person{
            ypos -= speed * 1.0;
          }
          
-     }     
+     }
+    if (type == 3) {
+      chase(P1);
+      }
    }
 }
