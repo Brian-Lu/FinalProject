@@ -246,7 +246,7 @@ void Edit(){
     }
   }else if(mouseX>=900 && mouseY >= 350 && mouseY <= 400){
     if(mousePressed){
-      //Undo();
+      selector = "Undo";
     }
   }else if(mouseX>=900 && mouseY >= 400 && mouseY <= 450){
     if(mousePressed){
@@ -337,62 +337,71 @@ void Edit(){
         LastSelector.add("Endspot");
       }
     }
+  }else if(selector == "Undo"){
+    if(keyPressed && key == 'a'){
+      Undo();
+      selector = "";
+    }
   }
 }
 void Undo(){
   if(!LastSelector.isEmpty()){
-  if(LastSelector.get(LastSelector.size()-1) == "Wall"){
-    if(Walls.size() >= 1){
-      Walls.remove(Walls.size()-1);
+    try{
+      if(LastSelector.get(LastSelector.size()-1) == "Wall"){
+        if(Walls.size() >= 1){
+          Walls.remove(Walls.size()-1);
+          if(LastSelector.size() >= 1){
+            LastSelector.remove(LastSelector.size()-1);
+          }  
+        }
+      }
+      if(LastSelector.get(LastSelector.size()-1) == "Door"){
+        if(Doors.size() >= 1){
+          Doors.remove(Doors.size()-1);
+          if(LastSelector.size() >= 1){
+            LastSelector.remove(LastSelector.size()-1);
+          }  
+        }
+      }
+      if(LastSelector.get(LastSelector.size()-1) == "Player"){
+        P1 = null;
+        if(LastSelector.size() >= 1){
+          LastSelector.remove(LastSelector.size()-1);
+        }
+      }
+      if(LastSelector.get(LastSelector.size()-1) == "Guard"){
+        if(Guards.size() >= 1){
+          Guards.remove(Guards.size()-1);
+          if(LastSelector.size() >= 1){
+            LastSelector.remove(LastSelector.size()-1);
+          }
+        }
+      }
+      if(LastSelector.get(LastSelector.size()-1) == "Key"){
+        if(Keys.size() >= 1){
+          Keys.remove(Keys.size()-1);
+          if(LastSelector.size() >= 1){
+            LastSelector.remove(LastSelector.size()-1);
+          }    
+        }
+      }
+      if(LastSelector.get(LastSelector.size()-1) == "Endspot"){
+        E1 = null;
+        if(LastSelector.size() >= 1){
+          LastSelector.remove(LastSelector.size()-1);
+        }
+      }
+      if(LastSelector.get(LastSelector.size()-1) == "Prisoner"){
+        if(Prisoners.size() >= 1){
+          Prisoners.remove(Prisoners.size()-1);
+          if(LastSelector.size() >= 1){
+            LastSelector.remove(LastSelector.size()-1);
+          }
+        }
+      }
+    }catch(IndexOutOfBoundsException e){
+      
     }
-    if(LastSelector.size() >= 1){
-      LastSelector.remove(LastSelector.size()-1);
-    }
-  }
-  if(LastSelector.get(LastSelector.size()-1) == "Door"){
-    if(Doors.size() >= 1){
-      Doors.remove(Doors.size()-1);
-    }
-    if(LastSelector.size() >= 1){
-      LastSelector.remove(LastSelector.size()-1);
-    }
-  }
-  if(LastSelector.get(LastSelector.size()-1) == "Player"){
-    P1 = null;
-    if(LastSelector.size() >= 1){
-      LastSelector.remove(LastSelector.size()-1);
-    }
-  }
-  if(LastSelector.get(LastSelector.size()-1) == "Guard"){
-    if(Guards.size() >= 1){
-      Guards.remove(Guards.size()-1);
-    }
-    if(LastSelector.size() >= 1){
-      LastSelector.remove(LastSelector.size()-1);
-    }
-  }
-  if(LastSelector.get(LastSelector.size()-1) == "Key"){
-    if(Keys.size() >= 1){
-      Keys.remove(Keys.size()-1);
-    }
-    if(LastSelector.size() >= 1){
-      LastSelector.remove(LastSelector.size()-1);
-    }
-  }
-  if(LastSelector.get(LastSelector.size()-1) == "Endspot"){
-    E1 = null;
-    if(LastSelector.size() >= 1){
-      LastSelector.remove(LastSelector.size()-1);
-    }
-  }
-  if(LastSelector.get(LastSelector.size()-1) == "Prisoner"){
-    if(Prisoners.size() >= 1){
-      Prisoners.remove(Prisoners.size()-1);
-    }
-    if(LastSelector.size() >= 1){
-      LastSelector.remove(LastSelector.size()-1);
-    }
-  }
   }
 }
 void EditReset(){
