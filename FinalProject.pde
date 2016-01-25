@@ -1,10 +1,17 @@
 int level, mode, maxLevel;
 int x = 100;
 int next;
+String LevName;
 PImage imgP;
 PImage imgG;
 PImage imgR;
 PImage imgK;
+ArrayList<String> SavedUserLevels = new ArrayList<String>(1);
+try{
+  PrintWriter writer = new PrintWriter("SavedUserLevels");
+}catch(FileNotFoundException a){
+   
+}
 Player P1;
 Endspot E1;
 // ArrayLists temporarily hold each object types for each specific level
@@ -258,9 +265,8 @@ void Edit(){
     }
   }else if(mouseX>=900 && mouseY >= 450 && mouseY <= 500){
     if(mousePressed){
-      /*LevName = "";
+      LevName = "";
       selector = "Save";
-      Ready = true;*/
     }
   }else if(mouseX>=900 && mouseY >= 500 && mouseY <= 550){
     if(mousePressed){
@@ -350,6 +356,7 @@ void Edit(){
     }
   }
 }
+
 void Undo(){
   if(!LastSelector.isEmpty()){
     try{
@@ -501,8 +508,7 @@ void save(String name){
 void setLevel(int Level){
   level = Level;
 }
-String LevName;
-boolean Ready;
+boolean exists;
 void SaveScreen(){
   background(204);
   text("NAME YOUR LEVEL",500,100);
@@ -513,21 +519,35 @@ void SaveScreen(){
   text("SAVE",850,525);
   text(LevName,500,325);
   if(keyPressed){
-    if(Ready){
-      LevName += key + ""; 
-      Ready = false;
-    }else if(key == ENTER){
-      Ready = true;
+    if(key == BACKSPACE){
+      if(LevName.length() >= 1){
+        LevName = LevName.substring(0,LevName.length()-1);
+      }
+      delay(100);
+    }else{
+      LevName += "" +key; 
+      delay(100);
     }
   }
-  print(LevName);
   if(mouseX>=800&&mouseX<=900&&mouseY>=500&&mouseY<=600){
     if(mousePressed){
       if(LevName.equals("")){
-             
-      }else{
-        //save(LevName); 
-        selector = "";
+        text("Please Name Your Level",500,400);
+      }else{ 
+        exists = false;
+        for(int x = 0;x<SavedUserLevels.size();x++){
+          if(LevName.equals(SavedUserLevels.get(x))){
+            exists = true; 
+          }
+        }
+        if(!exists){
+          //save(LevName); 
+          selector = "";
+          SavedUserLevels.add(LevName);
+          writer.println(LevName);
+        }else{
+          text("Please Choose A New Name, This Already Exists",500,400);
+        }
       }
     }
   }
@@ -566,4 +586,10 @@ void displaySidebar(){
   }
   text("Save",950,475);
   text("Back",950,525);
+}
+void LoadSavedLevels(){
+  String[] levels = loadStrings("SavedUserLevels.txt");
+  for(int x = 0;x<levels.length;x++){
+     SavedUserLevels.add(levels[x]);
+  }
 }
