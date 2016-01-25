@@ -21,9 +21,9 @@ class Prisoner{
     if (Math.abs(other.xpos - xpos) <= 2 && Math.abs(other.ypos - ypos) <= 5) {
       other.lives += lives;
       lives = 0;
-      xpos = -15;
+      /*xpos = -15;
       ypos = -20;
-      
+ */     
       
     }
   }
