@@ -483,18 +483,18 @@ void save(String name){
     print("Missing a player or endSpot"); 
   }else{
     output = createWriter("level" + name + ".txt");
-    output.println("Player "+startXcor+" "+ startYcor);
+    output.println("Player "+startXcor+ " " + startYcor);
     for(Wall wall : Walls){
-      output.println("Wall "+wall.xpos+" "+wall.ypos+" "+wall.Width+" "+wall.Height);
+      output.println("Wall "+wall.xpos+ " " +wall.ypos+ " " +wall.Width+ " " +wall.Height);
     }
     for(Guard guard : Guards){
-      output.println("Guard "+guard.xpos+" "+guard.ypos);
+      output.println("Guard "+guard.xpos+ " " +guard.ypos);
     }
     for(Door door : Doors){
-      output.println("Door "+door.xpos+" "+door.ypos+" "+door.Width+" "+door.Height);
+      output.println("Door "+door.xpos+ " " +door.ypos+ " " +door.Width+ " " +door.Height);
     }
     for(Key k : Keys){
-      output.println("Key " +k.xpos+" "+k.ypos);
+      output.println("Key " +k.xpos+ " " +k.ypos);
     }
   }
 }
