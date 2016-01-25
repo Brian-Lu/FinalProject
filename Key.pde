@@ -15,8 +15,7 @@ class Key{
 
   void display() {
     if(!used){
-      fill(255,204,0);
-      rect(xpos, ypos, 10, 15);
+      image(imgK, xpos - 10, ypos - 15, 20, 30);
     }
   }
 

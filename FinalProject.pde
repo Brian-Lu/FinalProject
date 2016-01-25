@@ -4,6 +4,7 @@ int next;
 PImage imgP;
 PImage imgG;
 PImage imgR;
+PImage imgK;
 Player P1;
 Endspot E1;
 // ArrayLists temporarily hold each object types for each specific level
@@ -18,6 +19,7 @@ void setup(){
   imgP = loadImage("Prisoner.png");
   imgG = loadImage("Guard.png");
   imgR = loadImage("Captured.png");
+  imgK = loadImage("Key.png");
 }
 void patrol(){
   if(Guards.size() >= 1){
