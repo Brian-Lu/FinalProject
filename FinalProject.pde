@@ -39,7 +39,11 @@ void draw(){
   }else if(mode == 2){
     ShowMenu(); 
   }else if(mode == 3){
-    EditLevels(); 
+    if(selector == "Save"){
+      SaveScreen();
+    }else{
+      EditLevels();
+    }
   }
 }
 void PlayLevel(int level){
@@ -254,8 +258,9 @@ void Edit(){
     }
   }else if(mouseX>=900 && mouseY >= 450 && mouseY <= 500){
     if(mousePressed){
-      selector = "";
-      mode = 2;
+      /*LevName = "";
+      selector = "Save";
+      Ready = true;*/
     }
   }else if(mouseX>=900 && mouseY >= 500 && mouseY <= 550){
     if(mousePressed){
@@ -400,7 +405,7 @@ void Undo(){
         }
       }
     }catch(IndexOutOfBoundsException e){
-      
+      //Stops the user from trying to undo nothing
     }
   }
 }
@@ -494,6 +499,37 @@ void save(String name){
 }
 void setLevel(int Level){
   level = Level;
+}
+String LevName;
+boolean Ready;
+void SaveScreen(){
+  background(204);
+  text("NAME YOUR LEVEL",500,100);
+  fill(255);
+  rect(800,500,100,50);
+  rect(400,300,200,50);
+  fill(0);
+  text("SAVE",850,525);
+  text(LevName,500,325);
+  if(keyPressed){
+    if(Ready){
+      LevName += key + ""; 
+      Ready = false;
+    }else if(key == ENTER){
+      Ready = true;
+    }
+  }
+  print(LevName);
+  if(mouseX>=800&&mouseX<=900&&mouseY>=500&&mouseY<=600){
+    if(mousePressed){
+      if(LevName.equals("")){
+             
+      }else{
+        //save(LevName); 
+        selector = "";
+      }
+    }
+  }
 }
 void displaySidebar(){
   fill(255);
