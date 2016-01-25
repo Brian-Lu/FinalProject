@@ -38,10 +38,48 @@ Attempt to save levels.
 Thursday January 21 2016: 
 
 New Features: 
-Started to implement playing levels made in the level editor as a test.
+Loading Levels from text files work perfectly now. 
 New Bugfixes:
 None
 New Bugs:
 Simply not finished with said test function, and the EndZone class needs to be refined to work better. 
 Goals:
 Fix test function and refine EndZone class. 
+
+Friday January 22 2016:
+
+New Features:
+Level Editor has more options now. 
+New Bugfixes:
+None
+New Bugs:
+Still trouble with testing, maybe due to Syntax error or something else. 
+More trouble with saving levels and text input. 
+Goals:
+Get testing and saving to work correctly. 
+
+Saturday January 23 2016:
+
+New Features: 
+Images for more avatars available now. 
+Refined display functions. 
+Writing to files works correctly now. 
+Menu display also works fine now. 
+New Bugfixes:
+Fixed loading files now. 
+New bugs:
+Still trouble with writing to new files, not sure how to get save new files as well. 
+Goals:
+Get saving and writing to files to work. 
+
+Sunday January 24 2016:
+
+New Features:
+Undo function. Not completely functionable. 
+Testing function backbone also started, works alright. 
+New Bugfixes:
+Testing function works to a point. 
+New Bugs:
+Undo function poses a large problem, too many bugs to tackle at once. 
+Goals:
+Finish more levels and undo function. 
