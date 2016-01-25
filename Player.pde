@@ -50,7 +50,7 @@ class Player extends Person{
    }
    
    void display(){
-      ellipse(xpos,ypos,10,10);
+      image(imgP, xpos - 10, ypos - 15, 20, 30);
       if(mode == 1){
         /*fill(0);
         rect(0, 0, 1000, ypos - light);

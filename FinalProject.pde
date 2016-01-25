@@ -1,6 +1,9 @@
 int level, mode, maxLevel;
 int x = 100;
 int next;
+PImage imgP;
+PImage imgG;
+PImage imgR;
 Player P1;
 Endspot E1;
 // ArrayLists temporarily hold each object types for each specific level
@@ -12,6 +15,9 @@ ArrayList<Door> Doors = new ArrayList<Door>(1);
 void setup(){
   size(1000, 650);
   mode = 2;
+  imgP = loadImage("Prisoner.png");
+  imgG = loadImage("Guard.png");
+  imgR = loadImage("Captured.png");
 }
 void patrol(){
   if(Guards.size() >= 1){
@@ -322,7 +328,7 @@ void Edit(){
         selector = "";
         LastSelector.add("Prisoner");
       }
-    }else if(selector == "EndSpot"){
+    }else if(selector == "Endspot"){
       if(mousePressed){
         E1 = new Endspot(mouseX,mouseY,20,20);
         selector = "";
@@ -457,7 +463,7 @@ PFont notice;
 PrintWriter output;
 void save(String name){
   if(P1 == null || E1 == null){
- 
+    print("Missing a player or endSpot"); 
   }else{
     output = createWriter("level" + name + ".txt");
     output.println("Player "+startXcor+" "+ startYcor);
