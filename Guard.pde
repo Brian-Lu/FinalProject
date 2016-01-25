@@ -44,8 +44,7 @@ class Guard extends Person{
      }
    }
    void display(){
-     fill(250,250,0);
-     rect(xpos,ypos,5,5); 
+     image(imgG, xpos - 10, ypos - 15, 20, 30); 
    }
    void move() {
      if (type == 1) {

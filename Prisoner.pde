@@ -14,7 +14,7 @@ class Prisoner{
   }
   void display() {
     if(lives >= 1) {
-      ellipse(xpos, ypos, 20, 20);
+      image(imgR, xpos - 10, ypos - 15, 20, 30);
     }
   }
   void behavior(Player other) {
