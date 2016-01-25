@@ -1,5 +1,5 @@
 class Person{
-   int health,speed;
+   float health,speed;
    float xpos,ypos;
    Person(){
      health = 100;
@@ -7,7 +7,7 @@ class Person{
      xpos = 70;
      ypos = 70;
    }
-   Person(float Xpos, float Ypos,int Speed, int Health){
+   Person(float Xpos, float Ypos,float Speed, int Health){
      health = Health;
      xpos = Xpos;
      ypos = Ypos;

@@ -127,7 +127,7 @@ void Load(String filename){
     -for guards, it will be extended as far as necessary to add patrol points
     */
     if(words[0].equals("Player")){
-      P1 = new Player(nums[0],nums[1],1,100);
+      P1 = new Player(nums[0],nums[1],1.5,100);
     }else if(words[0].equals("Guard")){
       g1 = new Guard(nums[0],nums[1],1,100,nums[2]);
       int n = 3;
@@ -268,7 +268,8 @@ void Edit(){
       mode = 2;
     }
   }
-  //print(selector);
+  
+  
   if(mouseX <= 900 && mouseX >= 0){
     if(selector == "Wall"){
       if(mousePressed){
@@ -279,9 +280,9 @@ void Edit(){
         fill(200,0,0);
         rect(xcor,ycor,mouseX - xcor,mouseY-ycor);
       }
-      if(keyPressed && key == 'a'){
+      if(keyPressed){
         if(xcor == -1 || ycor == -1){
-            
+        /* Makes sure x and y cor are valid inputs */             
         }else{
           Walls.add(new Wall(xcor,ycor,mouseX - xcor,mouseY - ycor));
           selector = "";
@@ -312,7 +313,7 @@ void Edit(){
         fill(200,0,200);
         rect(xcor,ycor,mouseX - xcor,mouseY-ycor);
       }
-      if(keyPressed && key == 'a'){
+      if(keyPressed){
         if(xcor == -1 || ycor == -1){
             
         }else{
@@ -343,7 +344,7 @@ void Edit(){
       }
     }
   }else if(selector == "Undo"){
-    if(keyPressed && key == 'a'){
+    if(mousePressed){
       Undo();
       selector = "";
     }
