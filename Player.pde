@@ -51,7 +51,6 @@ class Player extends Person{
    
    void display(){
       image(imgP, xpos - 10, ypos - 15, 20, 30);
-      /*
       if(mode == 1){
         fill(0);
         rect(0, 0, 1000, ypos - light);
@@ -59,17 +58,7 @@ class Player extends Person{
         rect(0, ypos + light, 1000, 1000);
         rect(xpos + light, 0, 1000, 1000);
       }
-      Disabled for testing reasons
-      
-      */
-      
-      
-      /*rect( xpos - 10, ypos + 10, 20, 40);
-      line(xpos + 10, ypos + 20, xpos + 15, ypos + 5);
-      line(xpos - 10, ypos + 20, xpos - 15, ypos + 5);
-      line(xpos + 10, ypos + 50, xpos + 15, ypos + 60);
-      line(xpos - 10, ypos + 50, xpos - 15, ypos + 60);
-      */
+      //Flashlight is disabled for level editor
    }
    
 }

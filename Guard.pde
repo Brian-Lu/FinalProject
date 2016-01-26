@@ -64,7 +64,6 @@ class Guard extends Person{
        change--;
      }
      if (type == 2) {
-       print(lookingForPost);
        if(xpos == Posts.get(lookingForPost).xpos && ypos == Posts.get(lookingForPost).ypos){
            if(lookingForPost >= Posts.size()-1){
               lookingForPost = 0; 

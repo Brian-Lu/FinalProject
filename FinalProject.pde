@@ -103,6 +103,17 @@ void PlayLevel(int level){
   }
   P1.display();
   P1.move();
+  fill(255);
+  rect(0,625,75,25);
+  textSize(14);
+  textAlign(CENTER);
+  fill(0);
+  text("Main Menu",37,638);
+  if(mouseX<=50&&mouseY>=625){
+    if(mousePressed){
+      mode = 2; 
+    }
+  }
 }
 Guard g1;
 void Load(String filename){
@@ -198,7 +209,13 @@ void displayLevel(){
     wall.display();
   }
   for(Guard guard : Guards){
-    guard.display(); 
+    guard.display();
+    if(guard.Posts.size()>=1){
+      for(int x = 1;x<guard.Posts.size();x++){
+        fill(250);
+        rect(guard.Posts.get(x).xpos,guard.Posts.get(x).ypos,10,10);
+      }
+    }
   }
   for(Prisoner prisoner : Prisoners){
     prisoner.display(); 
@@ -262,6 +279,7 @@ void Edit(){
   }else if(mouseX>=900 && mouseY >= 400 && mouseY <= 450){
     if(mousePressed){
       Testing = true;
+      delay(200);      
     }
   }else if(mouseX>=900 && mouseY >= 450 && mouseY <= 500){
     if(mousePressed){
@@ -278,9 +296,7 @@ void Edit(){
       LevName = "";
       selector = "Load"; 
     }
-  }
-  
-  
+  }  
   if(mouseX <= 900 && mouseX >= 0){
     if(selector == "Wall"){
       if(mousePressed){
@@ -305,7 +321,8 @@ void Edit(){
     }else if(selector == "Guard"){
       if(mousePressed){
         Guards.add(new Guard(mouseX,mouseY,1,100));
-        selector = "";
+        delay(1000);
+        selector = "Post";
         LastSelector.add("Guard");
       }
     }else if(selector == "Player"){
@@ -353,10 +370,18 @@ void Edit(){
         selector = "";
         LastSelector.add("Endspot");
       }
+    }else if(selector == "Post"){
+      if(mousePressed){
+        Guards.get(Guards.size()-1).type = 2;
+        Guards.get(Guards.size()-1).Posts.add(new Post(mouseX,mouseY));
+        delay(500);
+        LastSelector.add("Post");
+      }
     }
   }else if(selector == "Undo"){
     if(mousePressed){
       Undo();
+      delay(1000);
       selector = "";
     }
   }
@@ -412,6 +437,14 @@ void Undo(){
       if(LastSelector.get(LastSelector.size()-1) == "Prisoner"){
         if(Prisoners.size() >= 1){
           Prisoners.remove(Prisoners.size()-1);
+          if(LastSelector.size() >= 1){
+            LastSelector.remove(LastSelector.size()-1);
+          }
+        }
+      }
+      if(LastSelector.get(LastSelector.size()-1) == "Post"){
+        if(Guards.size() >= 1){
+          Guards.get(Guards.size()-1).Posts.remove(Guards.get(Guards.size()-1).Posts.size()-1);
           if(LastSelector.size() >= 1){
             LastSelector.remove(LastSelector.size()-1);
           }
@@ -481,9 +514,10 @@ void test(){
     for (Door door : Doors) {
       door.block(P1);
     }
-    if (mouseX>=900 && mouseY>=350 && mouseY <= 400){
+    if (mouseX>=900 && mouseY>=400 && mouseY <= 450){
       if(mousePressed){
         EditReset();
+        delay(200);
       }
     }
   }
@@ -500,7 +534,13 @@ void save(String name){
       output.println("Wall "+(int)wall.xpos+ " " +(int)wall.ypos+ " " +(int)wall.Width+ " " +(int)wall.Height);
     }
     for(Guard guard : Guards){
-      output.println("Guard "+(int)guard.xpos+ " " +(int)guard.ypos);
+      String line = "Guard "+(int)guard.xpos+ " " +(int)guard.ypos+ " ";
+      if(guard.Posts.size()>=1){
+        for(int a = 0;a<guard.Posts.size();a++){
+          line += (int)guard.Posts.get(a).xpos + " " + (int)guard.Posts.get(a).ypos + " "; 
+        }
+      }
+      output.println(line);
     }
     for(Door door : Doors){
       output.println("Door "+(int)door.xpos+ " " +(int)door.ypos+ " " +(int)door.Width+ " " +(int)door.Height);
@@ -522,9 +562,11 @@ void SaveScreen(){
   text("NAME YOUR LEVEL",500,100);
   fill(255);
   rect(800,500,100,50);
+  rect(100,500,100,50);
   rect(400,300,200,50);
   fill(0);
   text("SAVE",850,525);
+  text("BACK",150,525);
   text(LevName,500,325);
   if(keyPressed){
     if(key == BACKSPACE){
@@ -535,6 +577,12 @@ void SaveScreen(){
     }else{
       LevName += "" +key; 
       delay(100);
+    }
+  }
+  if(mouseX>=100&&mouseX<=200&&mouseY>=500&&mouseY<=550){
+    if(mousePressed){
+      LevName = "";
+      selector= "";
     }
   }
   if(mouseX>=800&&mouseX<=900&&mouseY>=500&&mouseY<=600){
@@ -565,9 +613,11 @@ void LoadScreen(){
   text("TYPE IN THE LEVEL NAME",500,100);
   fill(255);
   rect(800,500,100,50);
+  rect(100,500,100,50);
   rect(400,300,200,50);
   fill(0);
   text("LOAD",850,525);
+  text("BACK",150,525);
   text(LevName,500,325);
   if(keyPressed){
     if(key == BACKSPACE){
@@ -578,6 +628,12 @@ void LoadScreen(){
     }else{
       LevName += "" +key; 
       delay(100);
+    }
+  }
+  if(mouseX>=100&&mouseX<=200&&mouseY>=500&&mouseY<=550){
+    if(mousePressed){
+      LevName = "";
+      selector= "";
     }
   }
   if(mouseX>=800&&mouseX<=900&&mouseY>=500&&mouseY<=600){
