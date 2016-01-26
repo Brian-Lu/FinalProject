@@ -22,6 +22,7 @@ The buttons:
 Player - set up a player anywhere in the level (there can only be one). Click on "Player", then click wherever you want them to be (this location can be changed).
 Wall - initialize a wall in the level. CLick on the point that you wish to be the top left corner of your wall. Then, move your mouse diagnally to where you want the opposite corner to be. While doing this, the wall will follow your mouse, and when you wish to place the wall, press 'a' on your keyboard
 Guard - intitialize a Guard where you click the mouse. If you wish for the guard to patrol randomly, you can just continue selecting other objects from the sidebar and placing them in the level. If you would like to add guard Posts for the guard to walk between, place the guard where you like, then immediately after, click to initialize posts, where you want them to be, as well as in the order you wish for them to be. Posts will show up as white squares.
+Occasionally, if a Guard is supposed to patrol randomly, this presents an error, although there doesn't seem to be a reason for why this happens sometimes. 
 Door - Initialize a door in the same way you would initialize a wall.
 Key - Point and click to initialize a key after pressing the sidebar.
 Prisoner - same as Key.
