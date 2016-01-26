@@ -3,7 +3,7 @@ class Player extends Person{
    int EditX, EditY;
    Player(){
      super(); 
-     light = 50;
+     light = 80;
      lives = 5;
      keys = 0;
      EditX = -1;
@@ -11,13 +11,13 @@ class Player extends Person{
    }
    Player(float Xpos,float Ypos,float Speed, int Health){
      super(Xpos,Ypos,Speed,Health); 
-     light = 50;
+     light = 80;
      lives = 5;
      keys = 0;
      EditX = -1;
      EditY = -1;
    }
-   Player(float Xpos,float Ypos,int Speed, int Health,int editx,int edity){
+   Player(float Xpos,float Ypos,float Speed, int Health,int editx,int edity){
     this(Xpos,Ypos,Speed,Health);
     EditX = editx;
     EditY = edity;

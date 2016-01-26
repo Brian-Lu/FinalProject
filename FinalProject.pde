@@ -327,7 +327,7 @@ void Edit(){
       }
     }else if(selector == "Player"){
       if(mousePressed){
-        P1 = new Player(mouseX,mouseY,1,100,mouseX,mouseY);
+        P1 = new Player(mouseX,mouseY,1.5,100,mouseX,mouseY);
         startXcor = mouseX;
         startYcor = mouseY;
         LastSelector.add("Player");
@@ -381,7 +381,7 @@ void Edit(){
   }else if(selector == "Undo"){
     if(mousePressed){
       Undo();
-      delay(1000);
+      delay(500);
       selector = "";
     }
   }
@@ -486,8 +486,9 @@ void test(){
   }else{
     P1.move();
     for(Key abc : Keys) {
-      if (Math.abs(P1.xpos - abc.xpos) <= 2 && Math.abs(P1.ypos - abc.ypos) <= 2) {
+      if (Math.abs(P1.xpos - abc.xpos) <= 5 && Math.abs(P1.ypos - abc.ypos) <= 5) {
         P1.addKey();
+        abc.used = true;
       }
     }
     for(Guard guard : Guards){
