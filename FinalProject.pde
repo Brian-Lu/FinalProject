@@ -147,7 +147,7 @@ void Load(String filename){
     if(words[0].equals("Player")){
       P1 = new Player(nums[0],nums[1],1.5,100);
     }else if(words[0].equals("Guard")){
-      g1 = new Guard(nums[0],nums[1],1,100,nums[2]);
+      g1 = new Guard(nums[0],nums[1],1.5,100,nums[2]);
       int n = 3;
       while(nums[n]!=0 && nums[n+1]!=0){
         g1.Posts.add(new Post(nums[n],nums[n+1]));

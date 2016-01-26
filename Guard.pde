@@ -12,7 +12,7 @@ class Guard extends Person{
      Posts.add(new Post(xpos,ypos));
      lookingForPost = 0;
    }
-   Guard(float Xpos,float Ypos,int Speed, int health){
+   Guard(float Xpos,float Ypos,float Speed, int health){
      super(Xpos,Ypos,Speed,health);
      type = 1;
      change = 0;
@@ -21,7 +21,7 @@ class Guard extends Person{
      lookingFor = false;
      lookingForPost = 0;
    }
-   Guard(float Xpos, float Ypos, int Speed, int health, int Type) {
+   Guard(float Xpos, float Ypos, float Speed, int health, int Type) {
      this(Xpos, Ypos, Speed, health);
      type = Type;
      change = 0;
