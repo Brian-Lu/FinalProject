@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 int level, mode, maxLevel;
 int x = 100;
 int next;
@@ -7,13 +8,9 @@ PImage imgG;
 PImage imgR;
 PImage imgK;
 ArrayList<String> SavedUserLevels = new ArrayList<String>(1);
-try{
-  PrintWriter writer = new PrintWriter("SavedUserLevels");
-}catch(FileNotFoundException a){
-   
-}
 Player P1;
 Endspot E1;
+PrintWriter writer;
 // ArrayLists temporarily hold each object types for each specific level
 ArrayList<Guard> Guards = new ArrayList<Guard>(1);
 ArrayList<Wall> Walls = new ArrayList<Wall>(1);
@@ -26,7 +23,8 @@ void setup(){
   imgP = loadImage("Prisoner.png");
   imgG = loadImage("Guard.png");
   imgR = loadImage("Captured.png");
-  imgK = loadImage("Key.png");
+  imgK = loadImage("Key.png"); 
+  LoadSavedLevels();
 }
 void patrol(){
   if(Guards.size() >= 1){
@@ -48,6 +46,8 @@ void draw(){
   }else if(mode == 3){
     if(selector == "Save"){
       SaveScreen();
+    }else if(selector == "Load"){
+      LoadScreen();
     }else{
       EditLevels();
     }
@@ -273,6 +273,11 @@ void Edit(){
       selector = "";
       mode = 2;
     }
+  }else if(mouseX>=900 && mouseY>= 550 && mouseY <= 600){
+    if(mousePressed){
+      LevName = "";
+      selector = "Load"; 
+    }
   }
   
   
@@ -490,19 +495,22 @@ void save(String name){
     print("Missing a player or endSpot"); 
   }else{
     output = createWriter("level" + name + ".txt");
-    output.println("Player "+startXcor+ " " + startYcor);
+    output.println("Player "+((int)startXcor)+ " " + (int)startYcor);
     for(Wall wall : Walls){
-      output.println("Wall "+wall.xpos+ " " +wall.ypos+ " " +wall.Width+ " " +wall.Height);
+      output.println("Wall "+(int)wall.xpos+ " " +(int)wall.ypos+ " " +(int)wall.Width+ " " +(int)wall.Height);
     }
     for(Guard guard : Guards){
-      output.println("Guard "+guard.xpos+ " " +guard.ypos);
+      output.println("Guard "+(int)guard.xpos+ " " +(int)guard.ypos);
     }
     for(Door door : Doors){
-      output.println("Door "+door.xpos+ " " +door.ypos+ " " +door.Width+ " " +door.Height);
+      output.println("Door "+(int)door.xpos+ " " +(int)door.ypos+ " " +(int)door.Width+ " " +(int)door.Height);
     }
     for(Key k : Keys){
-      output.println("Key " +k.xpos+ " " +k.ypos);
+      output.println("Key " +(int)k.xpos+ " " +(int)k.ypos);
     }
+    output.println("Endspot " + (int)E1.xpos + " " + (int)E1.ypos + " "+ (int)E1.Width + " "+ (int)E1.Height);
+    output.flush();
+    output.close();
   }
 }
 void setLevel(int Level){
@@ -541,10 +549,51 @@ void SaveScreen(){
           }
         }
         if(!exists){
-          //save(LevName); 
+          save(LevName); 
           selector = "";
           SavedUserLevels.add(LevName);
-          writer.println(LevName);
+          Rewrite();
+        }else{
+          text("Please Choose A New Name, This Already Exists",500,400);
+        }
+      }
+    }
+  }
+}
+void LoadScreen(){
+  background(204);
+  text("TYPE IN THE LEVEL NAME",500,100);
+  fill(255);
+  rect(800,500,100,50);
+  rect(400,300,200,50);
+  fill(0);
+  text("LOAD",850,525);
+  text(LevName,500,325);
+  if(keyPressed){
+    if(key == BACKSPACE){
+      if(LevName.length() >= 1){
+        LevName = LevName.substring(0,LevName.length()-1);
+      }
+      delay(100);
+    }else{
+      LevName += "" +key; 
+      delay(100);
+    }
+  }
+  if(mouseX>=800&&mouseX<=900&&mouseY>=500&&mouseY<=600){
+    if(mousePressed){
+      if(LevName.equals("")){
+        text("NOT A VALID NAME",500,400);
+      }else{ 
+        exists = false;
+        for(int x = 0;x<SavedUserLevels.size();x++){
+          if(LevName.equals(SavedUserLevels.get(x))){
+            exists = true; 
+          }
+        }
+        if(exists){
+          Load("level" + LevName + ".txt"); 
+          selector = "";
         }else{
           text("Please Choose A New Name, This Already Exists",500,400);
         }
@@ -586,10 +635,19 @@ void displaySidebar(){
   }
   text("Save",950,475);
   text("Back",950,525);
+  text("Load Saved Level",950,575);
 }
 void LoadSavedLevels(){
   String[] levels = loadStrings("SavedUserLevels.txt");
   for(int x = 0;x<levels.length;x++){
      SavedUserLevels.add(levels[x]);
   }
+}
+void Rewrite(){
+  writer = createWriter("SavedUserLevels.txt");
+  for(int y = 0;y<SavedUserLevels.size();y++){
+    writer.println(SavedUserLevels.get(y));
+  }
+  writer.flush();
+  writer.close();
 }
