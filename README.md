@@ -19,23 +19,23 @@ Directions for the Campaign:
 Directions for the Level Editor:
 You will be sent to a screen with walls on all sides and a sidebar with different buttons on it.
 The buttons:
-Player - set up a player anywhere in the level (there can only be one). Click on "Player", then click wherever you want them to be (this location can be changed)
-Wall - initialize a wall in the level. CLick on the point that you wish to be one corner of your wall. Then, move your mouse diagnally to where you want the opposite corner to be. While doing this, the wall will follow your mouse, and when you wish to place the wall, press 'a' on your keyboard
-Guard - intitialize a Guard where you click the mouse. If you wish for the guard to patrol randomly, you can just continue selecting other objects from the sidebar and placing them in the level. If you would like to add guard Posts for the guard to walk between, place the guard where you like, then immediately after, click to initialize posts, where you want them to be, as well as in the order you wish for them to be. Posts will show up as white squares
-
-Door - Initialize a door in the same way you would initialize a wall
-Key - Point and click to initialize a key after pressing the sidebar
-Prisoner - same as Key
-Endzone - like player, there can only be one, just point and click to add it where you wish (again, this can be changed)
-Undo - press this button to undo anything you don't like about your level. It removes in order of recency (the most recent objects are removed first, including guard posts)
-Test - Runs the level in a similar fashion to the campaign level, just without the flashlight. Stop testing using the reset button (this button becomes reset while you are testing), by beating your self created level, or by dying
-Save - Saves the level to a file. Click the save button and when brought to the name your level screen, do exactly that. Make sure to type slowly though, or duplicates might get in there
-Back - return to the main menu
+Player - set up a player anywhere in the level (there can only be one). Click on "Player", then click wherever you want them to be (this location can be changed).
+Wall - initialize a wall in the level. CLick on the point that you wish to be the top left corner of your wall. Then, move your mouse diagnally to where you want the opposite corner to be. While doing this, the wall will follow your mouse, and when you wish to place the wall, press 'a' on your keyboard
+Guard - intitialize a Guard where you click the mouse. If you wish for the guard to patrol randomly, you can just continue selecting other objects from the sidebar and placing them in the level. If you would like to add guard Posts for the guard to walk between, place the guard where you like, then immediately after, click to initialize posts, where you want them to be, as well as in the order you wish for them to be. Posts will show up as white squares.
+Door - Initialize a door in the same way you would initialize a wall.
+Key - Point and click to initialize a key after pressing the sidebar.
+Prisoner - same as Key.
+Endzone - like player, there can only be one, just point and click to add it where you wish (again, this can be changed).
+Undo - press this button to undo anything you don't like about your level. It removes in order of recency (the most recent objects are removed first, including guard posts).
+Test - Runs the level in a similar fashion to the campaign level, just without the flashlight. Stop testing using the reset button (this button becomes reset while you are testing), by beating your self created level, or by dying.
+Save - Saves the level to a file. Click the save button and when brought to the name your level screen, do exactly that. Make sure to type slowly though, or duplicates might get in there.
+Back - return to the main menu.
 Load Saved Level - Same screen as save, just attempts to load a level from a file with the submitted name.
 
-Both Save and Load cause errors if the name is taken or does not exits, respectively. (Not program errors, but they stop the user from doing it)
+Both Save and Load cause errors if the name is taken or does not exits, respectively. (Not program errors, but they stop the user from doing it).
 
 Have fun creating and playing your own levels!!!!
+
 
 Changelog:
 
